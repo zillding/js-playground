@@ -1,0 +1,40 @@
+{
+  "name": "js-playground",
+  "version": "0.1.0",
+  "description": "A JavaScript code playground",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
+    "build": "npm run clean && npm run build:webpack",
+    "start": "node devServer.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zillding/js-playground.git"
+  },
+  "author": "Zill Ding",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.6.5",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-react-hmre": "^1.1.1",
+    "cross-env": "^1.0.7",
+    "css-loader": "^0.23.1",
+    "eventsource-polyfill": "^0.9.6",
+    "express": "^4.13.3",
+    "rimraf": "^2.4.3",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.12.9",
+    "webpack-dev-middleware": "^1.4.0",
+    "webpack-hot-middleware": "^2.9.1"
+  },
+  "dependencies": {
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-flex": "^1.2.3",
+    "react-redux": "^4.4.1",
+    "redux": "^3.3.1"
+  }
+}
