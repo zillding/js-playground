@@ -1,7 +1,12 @@
 /**
 state object:
 {
-  editorContent: string
+  editorContent: string,
+  modalIsOpen: boolean,
+  libraries: [{
+    url: string,
+    loading: boolean
+  }]
 }
  */
 
@@ -16,8 +21,34 @@ function editorContent(state = '', action) {
   }
 }
 
+function modalIsOpen(state = false, action) {
+  switch (action.type) {
+    case 'TOGGLE_MODAL':
+      return !state
+    default:
+      return state
+  }
+}
+
+function libraries(state = [], action) {
+  switch (action.type) {
+    case 'ADD_LIBRARY':
+      return [
+        ...state,
+        {
+          url: action.url,
+          loading: true
+        }
+      ]
+    default:
+      return state
+  }
+}
+
 const app = combineReducers({
-  editorContent
+  editorContent,
+  modalIsOpen,
+  libraries
 })
 
 export default app

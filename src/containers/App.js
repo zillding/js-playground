@@ -2,9 +2,12 @@ import React, { Component } from 'react'
 import { Flex, Item } from 'react-flex'
 require('react-flex/index.css')
 import { connect } from 'react-redux'
+import Modal from 'react-modal'
 
-import Editor from './Editor'
-import { setEditorContent, evalText } from './actions'
+import { setEditorContent, toggleModal, evalText } from '../actions'
+
+import Editor from '../components/Editor'
+import ModalContent from './ModalContent'
 
 const containerStyle = {
   position: 'fixed',
@@ -27,7 +30,12 @@ const buttonStyle = {
 
 class App extends Component {
   render() {
-    const { editorContent, onEditorContentChange } = this.props
+    const {
+      editorContent,
+      modalIsOpen,
+      onEditorContentChange,
+      onToggleModal
+    } = this.props
 
     return (
       <Flex
@@ -35,7 +43,8 @@ class App extends Component {
         alignItems={'stretch'}
         style={containerStyle}>
         <Item flex={0}>
-          <div>Playground</div>
+          <span style={{margin: 10}}>Playground</span>
+          <button onClick={onToggleModal}>Libraries</button>
         </Item>
         <Item style={editorContainerStyle}>
           <button
@@ -45,6 +54,11 @@ class App extends Component {
           </button>
           <Editor onChange={onEditorContentChange} />
         </Item>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={onToggleModal}>
+          <ModalContent/>
+        </Modal>
       </Flex>
     )
   }
@@ -52,13 +66,15 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    editorContent: state.editorContent
+    editorContent: state.editorContent,
+    modalIsOpen: state.modalIsOpen
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onEditorContentChange: text => dispatch(setEditorContent(text))
+    onEditorContentChange: text => dispatch(setEditorContent(text)),
+    onToggleModal: () => dispatch(toggleModal())
   }
 }
 
