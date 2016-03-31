@@ -30,18 +30,18 @@ export default class AddLibrary extends Component {
     const { url } = this.state
 
     return (
-      <div>
-        <span>Paste script cdn url here: </span>
+      <span>
         <input
           type="text"
           value={url}
+          placeholder="Paste script url here"
           onChange={this._handleInputChange} />
         <button
           disabled={!isUri(url)}
           onClick={this._handleAddClick}>
           Add
         </button>
-      </div>
+      </span>
     )
   }
 }

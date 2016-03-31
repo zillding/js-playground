@@ -3,8 +3,8 @@ import { Flex, Item } from 'react-flex'
 require('react-flex/index.css')
 
 import MenuBar from '../containers/MenuBar'
+import LibraryListPanel from '../containers/LibraryListPanel'
 import EditorArea from '../containers/EditorArea'
-import Modal from '../containers/Modal'
 import NotificationSystem from './NotificationSystem'
 
 const containerStyle = {
@@ -27,10 +27,12 @@ const App = () => (
     <Item flex={0}>
       <MenuBar/>
     </Item>
+    <Item flex={0}>
+      <LibraryListPanel/>
+    </Item>
     <Item style={editorContainerStyle}>
       <EditorArea/>
     </Item>
-    <Modal/>
     <NotificationSystem/>
   </Flex>
 )

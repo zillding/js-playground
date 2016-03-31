@@ -2,7 +2,7 @@
 state object:
 {
   editorContent: string,
-  modalIsOpen: boolean,
+  libraryListIsOpen: boolean,
   libraries: [{
     url: string,
     status: 'loading'|'loaded'|'error'
@@ -21,9 +21,9 @@ function editorContent(state = '', action) {
   }
 }
 
-function modalIsOpen(state = false, action) {
+function libraryListIsOpen(state = false, action) {
   switch (action.type) {
-    case 'TOGGLE_MODAL':
+    case 'TOGGLE_LIBRARY_LIST':
       return !state
     default:
       return state
@@ -65,7 +65,7 @@ function libraries(state = [], action) {
 
 const app = combineReducers({
   editorContent,
-  modalIsOpen,
+  libraryListIsOpen,
   libraries
 })
 

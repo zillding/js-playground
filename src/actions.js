@@ -1,12 +1,14 @@
 import { loadJs } from './utils'
 import { addNotification } from './components/NotificationSystem'
+import { focusOnEditor } from './components/Editor'
 
 export function setEditorContent(text) {
   return { type: 'SET_EDITOR_CONTENT', text }
 }
 
-export function toggleModal() {
-  return  { type: 'TOGGLE_MODAL' }
+export function toggleLibraryList() {
+  focusOnEditor()
+  return { type: 'TOGGLE_LIBRARY_LIST' }
 }
 
 export function addLibrary(url) {
@@ -22,12 +24,16 @@ export function addLibrary(url) {
         addNotification({
           title: 'Js Loaded!',
           message: url,
-          level: 'success',
-          autoDismiss: 0
+          level: 'success'
         })
       })
       .catch(err => {
         dispatch(errorLoadLibrary(index))
+        addNotification({
+          title: 'Js Load Failed...',
+          message: url,
+          level: 'error'
+        })
       })
   }
 }

@@ -1,22 +1,34 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { toggleModal } from '../actions'
+import { toggleLibraryList, addLibrary } from '../actions'
 
-const MenuBar = ({ onToggleModal }) => (
-  <div>
-    <span style={{margin: 10}}>Playground</span>
-    <button onClick={onToggleModal}>Libraries</button>
+import AddLibrary from '../components/AddLibrary'
+
+const MenuBar = ({ libraryListIsOpen, onToggleLibraryList, onAddLibrary }) => (
+  <div style={{padding: 5}}>
+    <span style={{margin: 10}}>JS Playground</span>
+    <select>
+      // TODO: add default libraries
+      <option value="jquery">jquery</option>
+    </select>
+    <AddLibrary onAdd={onAddLibrary} />
+    <Button
+      libraryListIsOpen={libraryListIsOpen}
+      onToggleLibraryList={onToggleLibraryList} />
   </div>
 )
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    libraryListIsOpen: state.libraryListIsOpen
+  }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onToggleModal: () => dispatch(toggleModal())
+    onAddLibrary: url => dispatch(addLibrary(url)),
+    onToggleLibraryList: () => dispatch(toggleLibraryList())
   }
 }
 
@@ -26,3 +38,18 @@ const MenuBarComponent = connect(
 )(MenuBar)
 
 export default MenuBarComponent
+
+const Button = ({ libraryListIsOpen, onToggleLibraryList }) => {
+  const style = {
+    float: 'right'
+  }
+  const label = libraryListIsOpen ? 'Hide Libraries' : 'Show Libraries'
+
+  return (
+    <button
+      onClick={onToggleLibraryList}
+      style={style}>
+      {label}
+    </button>
+  )
+}
