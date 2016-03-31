@@ -7,6 +7,7 @@ export function toggleModal() {
 }
 
 export function addLibrary(url) {
+  // TODO: load script
   return { type: 'ADD_LIBRARY', url }
 }
 

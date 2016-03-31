@@ -1,22 +1,46 @@
 import React, { Component, PropTypes } from 'react'
+import { isUri } from 'valid-url'
 
 export default class AddLibrary extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      url: ''
+    }
 
-    this._onAddClick = this._onAddClick.bind(this)
+    this._handleInputChange = this._handleInputChange.bind(this)
+    this._handleAddClick = this._handleAddClick.bind(this)
   }
 
-  _onAddClick() {
-    const text = this.refs.input.value
-    if (text) this.props.onAdd(text)
+  _handleInputChange(e) {
+    const url = e.target.value
+    this.setState({ url });
+  }
+
+  _handleAddClick() {
+    const { url } = this.state
+    if (isUri(url)) {
+      this.props.onAdd(url)
+      this.setState({ url: '' })
+    }
   }
 
   render() {
+    const { onAdd } = this.props
+    const { url } = this.state
+
     return (
       <div>
-        <input ref="input" type="text"/>
-        <button onClick={this._onAddClick}>Add</button>
+        <span>Paste script cdn url here: </span>
+        <input
+          type="text"
+          value={url}
+          onChange={this._handleInputChange} />
+        <button
+          disabled={!isUri(url)}
+          onClick={this._handleAddClick}>
+          Add
+        </button>
       </div>
     )
   }

@@ -12,7 +12,7 @@ class ModalContent extends Component {
 
     return (
       <div>
-        <div>External Libraries</div>
+        <h3>External Libraries</h3>
         <AddLibrary onAdd={onAddLibrary} />
         <LibraryList libraries={libraries} />
       </div>

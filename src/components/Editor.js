@@ -10,6 +10,7 @@ const editorStyle = {
 
 class Editor extends Component {
   componentDidMount() {
+    // TODO: focus on the editor
     const editor = ace.edit('editor')
     editor.setTheme('ace/theme/monokai')
     editor.getSession().setMode('ace/mode/javascript')
