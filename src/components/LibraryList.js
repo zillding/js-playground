@@ -1,14 +1,16 @@
-import React, { Component, PropTypes } from 'react'
+import React from 'react'
+
+import LibraryItem from './LibraryItem'
 
 const LibraryList = ({ libraries }) => {
   return (
     <ul>
       {
-        libraries.map(({ url }) => (
-          <li key={url}>
-            <a href={url}>{url}</a>
-          </li>
-        ))
+        libraries.map((library, index) =>
+          <LibraryItem
+            key={index}
+            data={library} />
+        )
       }
     </ul>
   )

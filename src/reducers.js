@@ -5,7 +5,7 @@ state object:
   modalIsOpen: boolean,
   libraries: [{
     url: string,
-    loading: boolean
+    status: 'loading'|'loaded'|'error'
   }]
 }
  */
@@ -37,9 +37,27 @@ function libraries(state = [], action) {
         ...state,
         {
           url: action.url,
-          loading: true
+          status: 'loading'
         }
       ]
+    case 'FINISH_LOAD_LIBRARY':
+      return state.map((library, index) => {
+        if (index === action.index) {
+          return Object.assign({}, library, {
+            status: 'loaded'
+          })
+        }
+        return library
+      })
+    case 'ERROR_LOAD_LIBRARY':
+      return state.map((library, index) => {
+        if (index === action.index) {
+          return Object.assign({}, library, {
+            status: 'error'
+          })
+        }
+        return library
+      })
     default:
       return state
   }
