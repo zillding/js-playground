@@ -1,5 +1,6 @@
 // global: ace
 import React, { Component, PropTypes } from 'react'
+import debounce from 'debounce'
 
 const editorStyle = {
   position: 'absolute',
@@ -12,10 +13,10 @@ class Editor extends Component {
     const editor = ace.edit('editor')
     editor.setTheme('ace/theme/monokai')
     editor.getSession().setMode('ace/mode/javascript')
-    editor.getSession().on('change', e => {
-      // TODO: add debounce
+    editor.setKeyboardHandler('ace/keyboard/vim')
+    editor.getSession().on('change', debounce(e => {
       this.props.onChange(editor.getValue())
-    })
+    }, 500))
   }
 
   render() {
