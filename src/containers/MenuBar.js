@@ -1,27 +1,47 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import find from 'lodash/find'
 
 import { toggleLibraryList, addLibrary } from '../actions'
 
 import AddLibrary from '../components/AddLibrary'
 
-const MenuBar = ({ libraryListIsOpen, onToggleLibraryList, onAddLibrary }) => (
+const MenuBar = ({
+  libraryListIsOpen,
+  libraries,
+  onToggleLibraryList,
+  onAddLibrary
+}) => (
   <div style={{padding: 5}}>
     <span style={{margin: 10}}>JS Playground</span>
-    <select>
-      // TODO: add default libraries
+    <select style={{marginRight: 10}}>
+      <option>Add Library</option>
       <option value="jquery">jquery</option>
     </select>
     <AddLibrary onAdd={onAddLibrary} />
-    <Button
-      libraryListIsOpen={libraryListIsOpen}
-      onToggleLibraryList={onToggleLibraryList} />
+    <div style={{float: 'right'}}>
+      {
+        find(libraries, { status: 'loading' }) ?
+          <i
+            className="fa fa-spinner fa-pulse"
+            style={{marginRight: 5}}></i> :
+          null
+      }
+      {
+        libraries.length > 0 ?
+          <Button
+            libraryListIsOpen={libraryListIsOpen}
+            onToggleLibraryList={onToggleLibraryList} /> :
+          null
+      }
+    </div>
   </div>
 )
 
 const mapStateToProps = state => {
   return {
-    libraryListIsOpen: state.libraryListIsOpen
+    libraryListIsOpen: state.libraryListIsOpen,
+    libraries: state.libraries
   }
 }
 
@@ -40,15 +60,10 @@ const MenuBarComponent = connect(
 export default MenuBarComponent
 
 const Button = ({ libraryListIsOpen, onToggleLibraryList }) => {
-  const style = {
-    float: 'right'
-  }
   const label = libraryListIsOpen ? 'Hide Libraries' : 'Show Libraries'
 
   return (
-    <button
-      onClick={onToggleLibraryList}
-      style={style}>
+    <button onClick={onToggleLibraryList}>
       {label}
     </button>
   )

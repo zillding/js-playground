@@ -4,7 +4,7 @@ import LibraryItem from './LibraryItem'
 
 const LibraryList = ({ libraries }) => {
   return (
-    <ul>
+    <ul style={{margin: 5}}>
       {
         libraries.map((library, index) =>
           <LibraryItem
