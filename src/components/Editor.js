@@ -8,16 +8,19 @@ const editorStyle = {
   width: '100%'
 }
 
+let editorInstance = null
+
 class Editor extends Component {
   componentDidMount() {
-    // TODO: focus on the editor
     const editor = ace.edit('editor')
+    editorInstance = editor
     editor.setTheme('ace/theme/monokai')
     editor.getSession().setMode('ace/mode/javascript')
     editor.setKeyboardHandler('ace/keyboard/vim')
     editor.getSession().on('change', debounce(e => {
       this.props.onChange(editor.getValue())
     }, 500))
+    editor.focus()
   }
 
   render() {
@@ -31,6 +34,10 @@ class Editor extends Component {
 
 Editor.propTypes = {
   onChange: PropTypes.func.isRequired
+}
+
+export function focusOnEditor() {
+  if (editorInstance) editorInstance.focus()
 }
 
 export default Editor
