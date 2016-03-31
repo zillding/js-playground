@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Flex, Item } from 'react-flex'
 require('react-flex/index.css')
 
 import MenuBar from '../containers/MenuBar'
 import EditorArea from '../containers/EditorArea'
 import Modal from '../containers/Modal'
+import NotificationSystem from './NotificationSystem'
 
 const containerStyle = {
   position: 'fixed',
@@ -30,6 +31,7 @@ const App = () => (
       <EditorArea/>
     </Item>
     <Modal/>
+    <NotificationSystem/>
   </Flex>
 )
 

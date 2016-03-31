@@ -2,11 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Modal from 'react-modal'
 
-import { toggleModal, addLibrary } from '../actions'
+import { toggleModal } from '../actions'
 
-import AddLibrary from '../components/AddLibrary'
-import LibraryList from '../components/LibraryList'
 import { focusOnEditor } from '../components/Editor'
+import LibrarySettings from './LibrarySettings'
 
 const iconStyle = {
   float: 'right',
@@ -15,9 +14,7 @@ const iconStyle = {
 
 const MyModal = ({
   modalIsOpen,
-  libraries,
-  onToggleModal,
-  onAddLibrary
+  onToggleModal
 }) => (
   <Modal
     isOpen={modalIsOpen}
@@ -27,16 +24,13 @@ const MyModal = ({
       style={iconStyle}
       onClick={onToggleModal}>
     </i>
-    <h3>External Libraries</h3>
-    <AddLibrary onAdd={onAddLibrary} />
-    <LibraryList libraries={libraries} />
+    <LibrarySettings/>
   </Modal>
 )
 
 const mapStateToProps = (state) => {
   return {
-    modalIsOpen: state.modalIsOpen,
-    libraries: state.libraries
+    modalIsOpen: state.modalIsOpen
   }
 }
 
@@ -45,8 +39,7 @@ const mapDispatchToProps = (dispatch) => {
     onToggleModal: () => {
       dispatch(toggleModal())
       focusOnEditor()
-    },
-    onAddLibrary: url => dispatch(addLibrary(url))
+    }
   }
 }
 

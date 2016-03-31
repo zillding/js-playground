@@ -1,4 +1,5 @@
 import { loadJs } from './utils'
+import { addNotification } from './components/NotificationSystem'
 
 export function setEditorContent(text) {
   return { type: 'SET_EDITOR_CONTENT', text }
@@ -18,6 +19,12 @@ export function addLibrary(url) {
     loadJs(url)
       .then(e => {
         dispatch(finishLoadLibrary(index))
+        addNotification({
+          title: 'Js Loaded!',
+          message: url,
+          level: 'success',
+          autoDismiss: 0
+        })
       })
       .catch(err => {
         dispatch(errorLoadLibrary(index))

@@ -14,7 +14,7 @@ const store = createStore(
 
 render(
   <Provider store={store}>
-    <App />
+    <App/>
   </Provider>,
   document.getElementById('root')
 )
