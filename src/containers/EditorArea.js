@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import { getPersistContent } from '../utils'
 import { setEditorContent, evalText } from '../actions'
 
 import Editor from '../components/Editor'
@@ -19,7 +20,10 @@ const EditorArea = ({ editorContent, onEditorContentChange }) => (
       onClick={() => evalText(editorContent)}>
       run
     </button>
-    <Editor onChange={onEditorContentChange} />
+    <Editor
+      initText={getPersistContent()}
+      onChange={onEditorContentChange}
+      onRunRequest={evalText} />
   </div>
 )
 

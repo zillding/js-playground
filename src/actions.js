@@ -1,10 +1,11 @@
 import find from 'lodash/find'
 
-import { loadJs } from './utils'
+import { loadJs, persistContent } from './utils'
 import { addNotification } from './components/NotificationSystem'
 import { focusOnEditor } from './components/Editor'
 
 export function setEditorContent(text) {
+  persistContent(text)
   return { type: 'SET_EDITOR_CONTENT', text }
 }
 
