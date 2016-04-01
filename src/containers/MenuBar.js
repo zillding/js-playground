@@ -16,6 +16,9 @@ import LibraryListPanelToggle from '../components/LibraryListPanelToggle'
 const itemStyle = {
   margin: 5
 }
+const rightItemStyle = Object.assign({}, itemStyle, {
+  marginLeft: 'auto'
+})
 
 const MenuBar = ({
   libraryListIsOpen,
@@ -45,17 +48,10 @@ const MenuBar = ({
         on={editorVimModeEnabled}
         onToggle={onToggleVimMode} />
     </Item>
-    <Item/>
     {
       libraries.length > 0 ?
-        <Item flex={0} style={itemStyle}>
+        <Item flex={0} style={rightItemStyle}>
           <LibraryLoadingIndicator libraries={libraries} />
-        </Item> :
-        null
-    }
-    {
-      libraries.length > 0 ?
-        <Item flex={0} style={itemStyle}>
           <LibraryListPanelToggle
             libraryListIsOpen={libraryListIsOpen}
             onToggleLibraryList={onToggleLibraryList} />

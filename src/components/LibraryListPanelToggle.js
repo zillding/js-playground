@@ -4,7 +4,9 @@ const LibraryListPanelToggle = ({ libraryListIsOpen, onToggleLibraryList }) => {
   const label = libraryListIsOpen ? 'Hide Libraries' : 'Show Libraries'
 
   return (
-    <button onClick={onToggleLibraryList}>
+    <button
+      style={{marginLeft: 5}}
+      onClick={onToggleLibraryList}>
       {label}
     </button>
   )
