@@ -1,3 +1,5 @@
+import find from 'lodash/find'
+
 import { loadJs } from './utils'
 import { addNotification } from './components/NotificationSystem'
 import { focusOnEditor } from './components/Editor'
@@ -15,7 +17,14 @@ export function addLibrary(library) {
   return (dispatch, getState) => {
     const { libraries } = getState()
     const index = libraries.length
-    const { url } = library
+    const { url, name } = library
+
+    if (urlIsLoaded(libraries, url))
+      return addNotification({
+        title: 'This library is already loaded.',
+        message: name || url,
+        level: 'warning'
+      })
 
     dispatch({ type: 'ADD_LIBRARY', library })
 
@@ -24,7 +33,7 @@ export function addLibrary(library) {
         dispatch(finishLoadLibrary(index))
         addNotification({
           title: 'Js Loaded!',
-          message: url,
+          message: name || url,
           level: 'success'
         })
       })
@@ -32,7 +41,7 @@ export function addLibrary(library) {
         dispatch(errorLoadLibrary(index))
         addNotification({
           title: 'Js Load Failed...',
-          message: url,
+          message: name || url,
           level: 'error'
         })
       })
@@ -49,4 +58,9 @@ function errorLoadLibrary(index) {
 
 export function evalText(text) {
   eval(`(function(){${text}})()`)
+}
+
+function urlIsLoaded(libraries, url) {
+  if (find(libraries, { url, status: 'loaded' })) return true
+  return false
 }
