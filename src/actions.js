@@ -15,6 +15,7 @@ export function toggleLibraryList() {
 }
 
 export function addLibrary(library) {
+  focusOnEditor()
   return (dispatch, getState) => {
     const { libraries } = getState()
     const index = libraries.length

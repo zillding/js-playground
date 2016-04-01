@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import { getPersistContent } from '../utils'
 import { setEditorContent, evalText } from '../actions'
+import { focusOnAddLibInput } from '../components/AddLibrary'
 
 import Editor from '../components/Editor'
 
@@ -23,7 +24,8 @@ const EditorArea = ({ editorContent, onEditorContentChange }) => (
     <Editor
       initText={getPersistContent()}
       onChange={onEditorContentChange}
-      onRunRequest={evalText} />
+      onRunRequest={evalText}
+      onAddLibRequest={focusOnAddLibInput} />
   </div>
 )
 
