@@ -16,5 +16,5 @@ export function persistContent(text) {
 }
 
 export function getPersistContent() {
-  return localStorage.getItem(PERSIST_CONTENT_KEY)
+  return localStorage.getItem(PERSIST_CONTENT_KEY) || ''
 }
