@@ -14,7 +14,7 @@ const buttonStyle = {
   zIndex: 9999
 }
 
-const EditorArea = ({ editorContent, onEditorContentChange }) => (
+const EditorArea = ({ editorContent, editorVimModeEnabled, onEditorContentChange }) => (
   <div>
     <button
       style={buttonStyle}
@@ -23,6 +23,7 @@ const EditorArea = ({ editorContent, onEditorContentChange }) => (
     </button>
     <Editor
       initText={getPersistContent()}
+      vimModeOn={editorVimModeEnabled}
       onChange={onEditorContentChange}
       onRunRequest={evalText}
       onAddLibRequest={focusOnAddLibInput} />
@@ -31,7 +32,8 @@ const EditorArea = ({ editorContent, onEditorContentChange }) => (
 
 const mapStateToProps = (state) => {
   return {
-    editorContent: state.editorContent
+    editorContent: state.editorContent,
+    editorVimModeEnabled: state.editorVimModeEnabled
   }
 }
 

@@ -2,6 +2,7 @@
 state object:
 {
   editorContent: string,
+  editorVimModeEnabled: boolean,
   libraryListIsOpen: boolean,
   libraries: [{
     url: string,
@@ -16,6 +17,15 @@ function editorContent(state = '', action) {
   switch (action.type) {
     case 'SET_EDITOR_CONTENT':
       return action.text
+    default:
+      return state
+  }
+}
+
+function editorVimModeEnabled(state = false, action) {
+  switch (action.type) {
+    case 'TOGGLE_EDITOR_VIM_MODE':
+      return !state
     default:
       return state
   }
@@ -64,6 +74,7 @@ function libraries(state = [], action) {
 
 const app = combineReducers({
   editorContent,
+  editorVimModeEnabled,
   libraryListIsOpen,
   libraries
 })

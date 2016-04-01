@@ -9,6 +9,11 @@ export function setEditorContent(text) {
   return { type: 'SET_EDITOR_CONTENT', text }
 }
 
+export function toggleEditorVimMode() {
+  focusOnEditor()
+  return { type: 'TOGGLE_EDITOR_VIM_MODE' }
+}
+
 export function toggleLibraryList() {
   focusOnEditor()
   return { type: 'TOGGLE_LIBRARY_LIST' }

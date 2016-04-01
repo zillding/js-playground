@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Flex, Item } from 'react-flex'
 require('react-flex/index.css')
 
+require('../style.css')
+
 import MenuBar from '../containers/MenuBar'
 import LibraryListPanel from '../containers/LibraryListPanel'
 import EditorArea from '../containers/EditorArea'

@@ -14,6 +14,7 @@ class Editor extends Component {
   componentDidMount() {
     const {
       initText = '',
+      vimModeOn,
       onChange,
       onRunRequest,
       onAddLibRequest
@@ -23,7 +24,7 @@ class Editor extends Component {
     editorInstance = editor
     editor.setTheme('ace/theme/monokai')
     editor.getSession().setMode('ace/mode/javascript')
-    // editor.setKeyboardHandler('ace/keyboard/vim')
+    if (vimModeOn) editor.setKeyboardHandler('ace/keyboard/vim')
     editor.getSession().on('change', debounce(e => {
       onChange(editor.getValue())
     }, 500))
@@ -49,6 +50,12 @@ class Editor extends Component {
     editor.focus()
   }
 
+  componentWillReceiveProps({ vimModeOn }) {
+    if (vimModeOn)
+      return editorInstance.setKeyboardHandler('ace/keyboard/vim')
+    return editorInstance.setKeyboardHandler('')
+  }
+
   render() {
     return (
       <div
@@ -60,6 +67,7 @@ class Editor extends Component {
 
 Editor.propTypes = {
   initText: PropTypes.string,
+  vimModeOn: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
   onRunRequest: PropTypes.func.isRequired,
   onAddLibRequest: PropTypes.func.isRequired
