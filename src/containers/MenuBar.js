@@ -1,10 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import find from 'lodash/find'
 
 import { toggleLibraryList, addLibrary } from '../actions'
+import defaultLibraries from '../libraries.config'
 
-import AddLibrary from '../components/AddLibrary'
+import LeftMenuBar from '../components/LeftMenuBar'
+import RightMenuBar from '../components/RightMenuBar'
 
 const MenuBar = ({
   libraryListIsOpen,
@@ -13,28 +14,13 @@ const MenuBar = ({
   onAddLibrary
 }) => (
   <div style={{padding: 5}}>
-    <span style={{margin: 10}}>JS Playground</span>
-    <select style={{marginRight: 10}}>
-      <option>Add Library</option>
-      <option value="jquery">jquery</option>
-    </select>
-    <AddLibrary onAdd={onAddLibrary} />
-    <div style={{float: 'right'}}>
-      {
-        find(libraries, { status: 'loading' }) ?
-          <i
-            className="fa fa-spinner fa-pulse"
-            style={{marginRight: 5}}></i> :
-          null
-      }
-      {
-        libraries.length > 0 ?
-          <Button
-            libraryListIsOpen={libraryListIsOpen}
-            onToggleLibraryList={onToggleLibraryList} /> :
-          null
-      }
-    </div>
+    <LeftMenuBar
+      defaultLibraries={defaultLibraries}
+      onAddLibrary={onAddLibrary} />
+    <RightMenuBar
+      libraries={libraries}
+      libraryListIsOpen={libraryListIsOpen}
+      onToggleLibraryList={onToggleLibraryList} />
   </div>
 )
 
@@ -47,7 +33,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddLibrary: url => dispatch(addLibrary(url)),
+    onAddLibrary: library => dispatch(addLibrary(library)),
     onToggleLibraryList: () => dispatch(toggleLibraryList())
   }
 }
@@ -58,13 +44,3 @@ const MenuBarComponent = connect(
 )(MenuBar)
 
 export default MenuBarComponent
-
-const Button = ({ libraryListIsOpen, onToggleLibraryList }) => {
-  const label = libraryListIsOpen ? 'Hide Libraries' : 'Show Libraries'
-
-  return (
-    <button onClick={onToggleLibraryList}>
-      {label}
-    </button>
-  )
-}

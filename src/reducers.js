@@ -35,10 +35,9 @@ function libraries(state = [], action) {
     case 'ADD_LIBRARY':
       return [
         ...state,
-        {
-          url: action.url,
+        Object.assign({}, action.library, {
           status: 'loading'
-        }
+        })
       ]
     case 'FINISH_LOAD_LIBRARY':
       return state.map((library, index) => {

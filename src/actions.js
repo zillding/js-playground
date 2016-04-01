@@ -11,12 +11,13 @@ export function toggleLibraryList() {
   return { type: 'TOGGLE_LIBRARY_LIST' }
 }
 
-export function addLibrary(url) {
+export function addLibrary(library) {
   return (dispatch, getState) => {
     const { libraries } = getState()
     const index = libraries.length
+    const { url } = library
 
-    dispatch({ type: 'ADD_LIBRARY', url })
+    dispatch({ type: 'ADD_LIBRARY', library })
 
     loadJs(url)
       .then(e => {

@@ -20,7 +20,7 @@ export default class AddLibrary extends Component {
   _handleAddClick() {
     const { url } = this.state
     if (isUri(url)) {
-      this.props.onAdd(url)
+      this.props.onAdd({ url })
       this.setState({ url: '' })
     }
   }
