@@ -24,6 +24,7 @@ class Editor extends Component {
     editorInstance = editor
     editor.setTheme('ace/theme/monokai')
     editor.getSession().setMode('ace/mode/javascript')
+    editor.getSession().setTabSize(2)
     if (vimModeOn) editor.setKeyboardHandler('ace/keyboard/vim')
     editor.getSession().on('change', debounce(e => {
       onChange(editor.getValue())
