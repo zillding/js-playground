@@ -58,7 +58,7 @@ export function addLibrary(library) {
 export function addDefaultLibrary(library) {
   return (dispatch, getState) => {
     const { defaultLibraries } = getState()
-    const { url } = library
+    const { name, url } = library
 
     if (urlIsLoaded(defaultLibraries, url))
       return addNotification({
@@ -68,6 +68,11 @@ export function addDefaultLibrary(library) {
       })
 
     dispatch({ type: 'ADD_DEFAULT_LIBRARY', library })
+    addNotification({
+      title: 'Script added to default select!',
+      message: name,
+      level: 'success'
+    })
   }
 }
 

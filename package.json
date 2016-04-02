@@ -38,7 +38,6 @@
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-flex": "^1.2.3",
-    "react-modal": "^0.6.1",
     "react-notification-system": "^0.2.6",
     "react-redux": "^4.4.1",
     "react-toggle": "^2.0.1",
