@@ -7,6 +7,7 @@ state object:
   }],
   editorContent: string,
   editorVimModeEnabled: boolean,
+  addDefaultLibraryIsOpen: boolean,
   libraryListIsOpen: boolean,
   libraries: [{
     name: string,
@@ -17,10 +18,23 @@ state object:
  */
 
 import { combineReducers } from 'redux'
-import defaultLib from './lib/libraries.config'
+import { getPersistDefaultLibraries, setPersistDefaultLibraries } from './lib/utils'
 
-function defaultLibraries(state = defaultLib, action) {
-  return state
+function defaultLibraries(state = getPersistDefaultLibraries(), action) {
+  switch (action.type) {
+    case 'ADD_DEFAULT_LIBRARY':
+      const result = [
+        ...state,
+        action.library
+      ]
+      setPersistDefaultLibraries(result)
+      return result
+    case 'RESET_DEFAULT_LIBRARIES':
+      setPersistDefaultLibraries([])
+      return getPersistDefaultLibraries()
+    default:
+      return state
+  }
 }
 
 function editorContent(state = '', action) {
@@ -36,6 +50,17 @@ function editorVimModeEnabled(state = false, action) {
   switch (action.type) {
     case 'TOGGLE_EDITOR_VIM_MODE':
       return !state
+    default:
+      return state
+  }
+}
+
+function addDefaultLibraryIsOpen(state = true, action) {
+  switch (action.type) {
+    case 'TOGGLE_ADD_DEFAULT_LIBRARY':
+      if (typeof action.mode === 'undefined') return !state
+      if (action.mode) return true
+      return false
     default:
       return state
   }
@@ -86,6 +111,7 @@ const app = combineReducers({
   defaultLibraries,
   editorContent,
   editorVimModeEnabled,
+  addDefaultLibraryIsOpen,
   libraryListIsOpen,
   libraries
 })

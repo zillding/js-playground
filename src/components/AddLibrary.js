@@ -22,7 +22,21 @@ class AddLibrary extends Component {
   }
 
   _handleAddClick() {
+    const { onAdd, onAddDefaultRequest, onResetDefaultRequest } = this.props
     const { url } = this.state
+
+    // secret message to open the add default library
+    // portal
+    if (url === 'addmyown') {
+      onAddDefaultRequest()
+      this.setState({ url: '' })
+    }
+
+    if (url === 'reset') {
+      onResetDefaultRequest()
+      this.setState({ url: '' })
+    }
+
     if (isUri(url)) {
       this.props.onAdd({ url })
       this.setState({ url: '' })
@@ -48,7 +62,6 @@ class AddLibrary extends Component {
   }
 
   render() {
-    const { onAdd } = this.props
     const { url } = this.state
 
     return (
@@ -71,7 +84,9 @@ class AddLibrary extends Component {
 }
 
 AddLibrary.propTypes = {
-  onAdd: PropTypes.func.isRequired
+  onAdd: PropTypes.func.isRequired,
+  onAddDefaultRequest: PropTypes.func.isRequired,
+  onResetDefaultRequest: PropTypes.func.isRequired
 }
 
 export default AddLibrary

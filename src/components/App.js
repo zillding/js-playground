@@ -5,6 +5,7 @@ require('react-flex/index.css')
 require('../style.css')
 
 import MenuBar from '../containers/MenuBar'
+import AddDefaultLibraryPanel from '../containers/AddDefaultLibraryPanel'
 import LibraryListPanel from '../containers/LibraryListPanel'
 import EditorArea from '../containers/EditorArea'
 import NotificationSystem from './NotificationSystem'
@@ -28,6 +29,9 @@ const App = () => (
     style={containerStyle}>
     <Item flex={0}>
       <MenuBar/>
+    </Item>
+    <Item flex={0}>
+      <AddDefaultLibraryPanel/>
     </Item>
     <Item flex={0}>
       <LibraryListPanel/>

@@ -3,7 +3,13 @@ import { connect } from 'react-redux'
 import { Flex, Item } from 'react-flex'
 require('react-flex/index.css')
 
-import { toggleLibraryList, toggleEditorVimMode, addLibrary } from '../actions'
+import {
+  toggleLibraryList,
+  toggleAddDefaultLibrary,
+  resetDefaultLibraries,
+  toggleEditorVimMode,
+  addLibrary
+} from '../actions'
 
 import Seperator from '../components/MenuBarSeperator'
 import DefaultLibraries from '../components/DefaultLibraries'
@@ -25,6 +31,8 @@ const MenuBar = ({
   editorVimModeEnabled,
   libraries,
   onToggleLibraryList,
+  onAddDefaultLibraryRequest,
+  onResetDefaultLibrariesRequest,
   onToggleVimMode,
   onAddLibrary
 }) => (
@@ -40,7 +48,10 @@ const MenuBar = ({
     </Item>
     <Seperator/>
     <Item flex={0} style={itemStyle}>
-      <AddLibrary onAdd={onAddLibrary} />
+      <AddLibrary
+        onAdd={onAddLibrary}
+        onAddDefaultRequest={onAddDefaultLibraryRequest}
+        onResetDefaultRequest={onResetDefaultLibrariesRequest} />
     </Item>
     <Seperator/>
     <Item flex={0} style={itemStyle}>
@@ -74,6 +85,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onAddLibrary: library => dispatch(addLibrary(library)),
     onToggleLibraryList: () => dispatch(toggleLibraryList()),
+    onAddDefaultLibraryRequest: () => dispatch(toggleAddDefaultLibrary(true)),
+    onResetDefaultLibrariesRequest: () => dispatch(resetDefaultLibraries()),
     onToggleVimMode: () => dispatch(toggleEditorVimMode())
   }
 }
