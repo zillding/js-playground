@@ -1,10 +1,15 @@
 /**
 state object:
 {
+  defaultLibraries: [{
+    name: string,
+    url: string
+  }],
   editorContent: string,
   editorVimModeEnabled: boolean,
   libraryListIsOpen: boolean,
   libraries: [{
+    name: string,
     url: string,
     status: 'loading'|'loaded'|'error'
   }]
@@ -12,6 +17,11 @@ state object:
  */
 
 import { combineReducers } from 'redux'
+import defaultLib from './lib/libraries.config'
+
+function defaultLibraries(state = defaultLib, action) {
+  return state
+}
 
 function editorContent(state = '', action) {
   switch (action.type) {
@@ -73,6 +83,7 @@ function libraries(state = [], action) {
 }
 
 const app = combineReducers({
+  defaultLibraries,
   editorContent,
   editorVimModeEnabled,
   libraryListIsOpen,

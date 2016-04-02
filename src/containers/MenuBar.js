@@ -4,7 +4,6 @@ import { Flex, Item } from 'react-flex'
 require('react-flex/index.css')
 
 import { toggleLibraryList, toggleEditorVimMode, addLibrary } from '../actions'
-import defaultLibraries from '../lib/libraries.config'
 
 import Seperator from '../components/MenuBarSeperator'
 import DefaultLibraries from '../components/DefaultLibraries'
@@ -21,6 +20,7 @@ const rightItemStyle = Object.assign({}, itemStyle, {
 })
 
 const MenuBar = ({
+  defaultLibraries,
   libraryListIsOpen,
   editorVimModeEnabled,
   libraries,
@@ -63,6 +63,7 @@ const MenuBar = ({
 
 const mapStateToProps = state => {
   return {
+    defaultLibraries: state.defaultLibraries,
     libraryListIsOpen: state.libraryListIsOpen,
     editorVimModeEnabled: state.editorVimModeEnabled,
     libraries: state.libraries
