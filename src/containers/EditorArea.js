@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { getPersistContent } from '../utils'
+import { getPersistContent } from '../lib/utils'
 import { setEditorContent, evalText } from '../actions'
 import { focusOnAddLibInput } from '../components/AddLibrary'
 

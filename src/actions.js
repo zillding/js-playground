@@ -1,6 +1,6 @@
 import find from 'lodash/find'
 
-import { loadJs, persistContent } from './utils'
+import { loadJs, persistContent } from './lib/utils'
 import { addNotification } from './components/NotificationSystem'
 import { focusOnEditor } from './components/Editor'
 

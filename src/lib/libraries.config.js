@@ -10,4 +10,7 @@ export default [{
 }, {
   name: 'rx.all v4.1.0',
   url: 'https://cdnjs.cloudflare.com/ajax/libs/rxjs/4.1.0/rx.all.min.js'
+}, {
+  name: 'rx.dom v7.0.3',
+  url: 'https://cdnjs.cloudflare.com/ajax/libs/rxjs-dom/7.0.3/rx.dom.min.js'
 }]

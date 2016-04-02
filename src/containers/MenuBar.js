@@ -4,7 +4,7 @@ import { Flex, Item } from 'react-flex'
 require('react-flex/index.css')
 
 import { toggleLibraryList, toggleEditorVimMode, addLibrary } from '../actions'
-import defaultLibraries from '../libraries.config'
+import defaultLibraries from '../lib/libraries.config'
 
 import Seperator from '../components/MenuBarSeperator'
 import DefaultLibraries from '../components/DefaultLibraries'

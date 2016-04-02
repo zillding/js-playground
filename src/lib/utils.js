@@ -1,3 +1,5 @@
+import { getPersist, setPersist } from './persist'
+
 export function loadJs(src) {
   return new Promise((resolve, reject) => {
     var s
@@ -9,12 +11,12 @@ export function loadJs(src) {
   })
 }
 
-const PERSIST_CONTENT_KEY = 'js-playground-persist-content'
+const CONTENT_KEY = 'content'
 
 export function persistContent(text) {
-  localStorage.setItem(PERSIST_CONTENT_KEY, text)
+  setPersist(CONTENT_KEY, text)
 }
 
 export function getPersistContent() {
-  return localStorage.getItem(PERSIST_CONTENT_KEY) || ''
+  return getPersist(CONTENT_KEY) || ''
 }
