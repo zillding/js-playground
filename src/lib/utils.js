@@ -1,3 +1,6 @@
+import isNull from 'lodash/isNull'
+import random from 'lodash/random'
+
 import { getPersist, setPersist } from './persist'
 
 import defaultLibraries from './libraries.config'
@@ -11,6 +14,21 @@ export function loadJs(src) {
     s.onerror = reject
     document.head.appendChild(s)
   })
+}
+
+let previousNum = null
+export function generateNonDupInt(low, high) {
+  const result = random(low, high)
+
+  // first time generate
+  if (isNull(previousNum)) return result
+
+  if (result !== previousNum) {
+    previousNum = result
+    return result
+  }
+
+  return generateNonDupInt(low, high)
 }
 
 const CONTENT_KEY = 'content'

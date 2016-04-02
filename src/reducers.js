@@ -55,7 +55,7 @@ function editorVimModeEnabled(state = false, action) {
   }
 }
 
-function addDefaultLibraryIsOpen(state = true, action) {
+function addDefaultLibraryIsOpen(state = false, action) {
   switch (action.type) {
     case 'TOGGLE_ADD_DEFAULT_LIBRARY':
       if (typeof action.mode === 'undefined') return !state
