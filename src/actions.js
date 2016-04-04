@@ -93,7 +93,9 @@ function errorLoadLibrary(index) {
 }
 
 export function evalText(text) {
-  eval(`(function(){${text}})()`)
+  // eval the js code in the global context
+  // so can access everything in the developer console
+  eval.call(window, text)
 }
 
 function urlIsLoaded(libraries, url) {
