@@ -1,5 +1,7 @@
-const storage = sessionStorage
 const PERSIST_KEY_PREFIX = 'js-playground-by-zill'
+
+const { NODE_ENV } = process.env
+const storage = NODE_ENV === 'production' ? localStorage : sessionStorage
 
 export function getPersist(key) {
   try {

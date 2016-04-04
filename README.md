@@ -30,11 +30,11 @@ run `npm run build` to build static assets in folder `dist`
 ## Features
 
 + Test short js code snippets.
-+ Save script with browser storage. (safe to refresh)
++ Save script with browser storage. (`sessionStorage` in development mode and `localStorage` in production mode)
 + Support editor vim keybinding.
 + Load external js libraries with either default select or and cdn url.
 + (easter egg) If you find any script you used very frequently and want to add to default select,
-try typing 'addmyown' in the add library input in top menu bar. ('reset' to reset) This will also be persisted.
+try typing 'addmyown' in the add library input in top menu bar. ('reset' to reset) See what happens!!!
 
 ## TODO
 
