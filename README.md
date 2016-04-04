@@ -35,3 +35,8 @@ run `npm run build` to build static assets in folder `dist`
 + Load external js libraries with either default select or and cdn url.
 + (easter egg) If you find any script you used very frequently and want to add to default select,
 try typing 'addmyown' in the add library input in top menu bar. ('reset' to reset) This will also be persisted.
+
+## TODO
+
++ Add tips
++ Allow executing selected code
