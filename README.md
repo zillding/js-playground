@@ -2,6 +2,8 @@
 
 A JavaScript code playground
 
+[Demo](http://zillding.github.io/js-playground/)
+
 ## Development and Run
 
 clone the repo
