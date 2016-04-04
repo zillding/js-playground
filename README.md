@@ -38,5 +38,10 @@ try typing 'addmyown' in the add library input in top menu bar. ('reset' to rese
 
 ## TODO
 
++ Enable auto complete
 + Add tips
 + Allow executing selected code
++ Toggle script eval context (global or local)
++ Load script according to code (certain code pattern: `// @@LOAD_SCRIPT(url)`)
++ Add push-to-client update message
++ Persist settings (vim)
