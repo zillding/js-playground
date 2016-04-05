@@ -31,7 +31,7 @@ run `npm run build` to build static assets in folder `dist`
 
 ## Features
 
-+ Test short js code snippets.
++ Test short js code snippets with autocompletion.
 + Save script with browser storage. (`sessionStorage` in development mode and `localStorage` in production mode)
 + Support editor vim keybinding.
 + Load external js libraries with either default select or and cdn url.
@@ -40,7 +40,7 @@ try typing 'addmyown' in the add library input in top menu bar. ('reset' to rese
 
 ## TODO
 
-+ Enable auto complete
++ Add welcome messages
 + Add tips
 + Allow executing selected code
 + Toggle script eval context (global or local)

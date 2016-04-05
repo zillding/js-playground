@@ -22,6 +22,11 @@ class Editor extends Component {
 
     const editor = ace.edit('editor')
     editorInstance = editor
+    editor.setOptions({
+      enableBasicAutocompletion: true,
+      enableSnippets: true,
+      enableLiveAutocompletion:  true
+    })
     editor.setTheme('ace/theme/monokai')
     editor.getSession().setMode('ace/mode/javascript')
     editor.getSession().setTabSize(2)
@@ -52,6 +57,7 @@ class Editor extends Component {
   }
 
   componentWillReceiveProps({ vimModeOn }) {
+    if (!editorInstance) return
     if (vimModeOn)
       return editorInstance.setKeyboardHandler('ace/keyboard/vim')
     return editorInstance.setKeyboardHandler('')
