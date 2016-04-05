@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Flex, Item } from 'react-flex'
-require('react-flex/index.css')
+import 'react-flex/index.css'
 
-require('../style.css')
+import '../style.css'
 
 import MenuBar from '../containers/MenuBar'
 import AddDefaultLibraryPanel from '../containers/AddDefaultLibraryPanel'

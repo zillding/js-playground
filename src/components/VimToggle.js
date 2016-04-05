@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Toggle from 'react-toggle'
-require('react-toggle/style.css')
+import 'react-toggle/style.css'
 
 const VimToggle = ({ on, onToggle }) => {
   const text = on ? 'Vim On' : 'Vim Off'

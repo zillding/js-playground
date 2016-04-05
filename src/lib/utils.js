@@ -4,6 +4,7 @@ import random from 'lodash/random'
 import { getPersist, setPersist } from './persist'
 
 import defaultLibraries from './libraries.config'
+import welcome from 'raw!./welcome.config.txt'
 
 export function loadJs(src) {
   return new Promise((resolve, reject) => {
@@ -37,7 +38,7 @@ export function persistContent(text) {
 }
 
 export function getPersistContent() {
-  return getPersist(CONTENT_KEY) || ''
+  return getPersist(CONTENT_KEY).trim() || welcome.trim()
 }
 
 const DEFAULT_LIBRARIES_KEY = 'default-libraries'

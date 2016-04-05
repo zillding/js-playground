@@ -42,7 +42,6 @@ try typing 'addmyown' in the add library input in top menu bar. ('reset' to rese
 
 ## TODO
 
-+ Add welcome messages
 + Add tips
 + Add settings panel to accommadate more settings
 + Allow executing selected code
