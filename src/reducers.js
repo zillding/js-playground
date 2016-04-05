@@ -18,7 +18,11 @@ state object:
  */
 
 import { combineReducers } from 'redux'
-import { getPersistDefaultLibraries, setPersistDefaultLibraries } from './lib/utils'
+import {
+  getPersistDefaultLibraries,
+  setPersistDefaultLibraries,
+  getPersistVimMode
+} from './lib/utils'
 
 function defaultLibraries(state = getPersistDefaultLibraries(), action) {
   switch (action.type) {
@@ -46,7 +50,7 @@ function editorContent(state = '', action) {
   }
 }
 
-function editorVimModeEnabled(state = false, action) {
+function editorVimModeEnabled(state = getPersistVimMode(), action) {
   switch (action.type) {
     case 'TOGGLE_EDITOR_VIM_MODE':
       return !state

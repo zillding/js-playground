@@ -1,6 +1,6 @@
 import find from 'lodash/find'
 
-import { loadJs, persistContent } from './lib/utils'
+import { loadJs, persistContent, setPersistVimMode } from './lib/utils'
 import { addNotification } from './components/NotificationSystem'
 import { focusOnEditor } from './components/Editor'
 
@@ -11,7 +11,11 @@ export function setEditorContent(text) {
 
 export function toggleEditorVimMode() {
   focusOnEditor()
-  return { type: 'TOGGLE_EDITOR_VIM_MODE' }
+  return (dispatch, getState) => {
+    const { editorVimModeEnabled } = getState()
+    setPersistVimMode(!editorVimModeEnabled)
+    dispatch({ type: 'TOGGLE_EDITOR_VIM_MODE' })
+  }
 }
 
 export function toggleLibraryList() {

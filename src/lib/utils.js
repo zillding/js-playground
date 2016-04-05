@@ -50,3 +50,12 @@ export function getPersistDefaultLibraries() {
   if (libs && libs.length > 0) return libs
   return defaultLibraries
 }
+
+const VIM_MODE_KEY = 'vim-mode-enabled'
+export function setPersistVimMode(mode) {
+  setPersist(VIM_MODE_KEY, mode)
+}
+
+export function getPersistVimMode() {
+  return getPersist(VIM_MODE_KEY) || false
+}
