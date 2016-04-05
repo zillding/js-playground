@@ -38,7 +38,8 @@ export function persistContent(text) {
 }
 
 export function getPersistContent() {
-  return getPersist(CONTENT_KEY).trim() || welcome.trim()
+  const persistContent = getPersist(CONTENT_KEY) || ''
+  return persistContent.trim() || welcome.trim()
 }
 
 const DEFAULT_LIBRARIES_KEY = 'default-libraries'
