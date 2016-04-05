@@ -52,6 +52,7 @@ class Editor extends Component {
     })
     editor.$blockScrolling = Infinity // disable warning message
     editor.setValue(initText)
+    this._loadLibs()
     editor.gotoLine(1)
     editor.focus()
   }
@@ -61,6 +62,17 @@ class Editor extends Component {
     if (vimModeOn)
       return editorInstance.setKeyboardHandler('ace/keyboard/vim')
     return editorInstance.setKeyboardHandler('')
+  }
+
+  _loadLibs() {
+    const { initText, onLoadLibraryRequest } = this.props
+    const regex = /^\/\/ @@LOAD_SCRIPT\((.*)\)/
+    initText.split('\n').map(line => {
+      const [, url] = regex.exec(line) || []
+      if (url) {
+        onLoadLibraryRequest(url)
+      }
+    })
   }
 
   render() {
@@ -77,7 +89,8 @@ Editor.propTypes = {
   vimModeOn: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
   onRunRequest: PropTypes.func.isRequired,
-  onAddLibRequest: PropTypes.func.isRequired
+  onAddLibRequest: PropTypes.func.isRequired,
+  onLoadLibraryRequest: PropTypes.func.isRequired
 }
 
 export function focusOnEditor() {

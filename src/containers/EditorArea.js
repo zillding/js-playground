@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { getPersistContent } from '../lib/utils'
-import { setEditorContent, evalText } from '../actions'
+import { setEditorContent, evalText, addLibrary } from '../actions'
 import { focusOnAddLibInput } from '../components/AddLibrary'
 
 import Editor from '../components/Editor'
@@ -14,7 +14,12 @@ const buttonStyle = {
   zIndex: 9999
 }
 
-const EditorArea = ({ editorContent, editorVimModeEnabled, onEditorContentChange }) => (
+const EditorArea = ({
+  editorContent,
+  editorVimModeEnabled,
+  onEditorContentChange,
+  onLoadLibraryRequest
+}) => (
   <div>
     <button
       style={buttonStyle}
@@ -26,7 +31,8 @@ const EditorArea = ({ editorContent, editorVimModeEnabled, onEditorContentChange
       vimModeOn={editorVimModeEnabled}
       onChange={onEditorContentChange}
       onRunRequest={evalText}
-      onAddLibRequest={focusOnAddLibInput} />
+      onAddLibRequest={focusOnAddLibInput}
+      onLoadLibraryRequest={onLoadLibraryRequest} />
   </div>
 )
 
@@ -39,7 +45,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onEditorContentChange: text => dispatch(setEditorContent(text))
+    onEditorContentChange: text => dispatch(setEditorContent(text)),
+    onLoadLibraryRequest: url => dispatch(addLibrary({ url }))
   }
 }
 

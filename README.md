@@ -35,6 +35,7 @@ run `npm run build` to build static assets in folder `dist`
 + Save script with browser storage. (`sessionStorage` in development mode and `localStorage` in production mode)
 + Support editor vim keybinding.
 + Load external js libraries with either default select or and cdn url.
++ Load script according to code pattern: `// @@LOAD_SCRIPT(http://jquery.js)`
 + (easter egg) If you find any script you used very frequently and want to add to default select,
 try typing 'addmyown' in the add library input in top menu bar. ('reset' to reset) See what happens!!!
 
@@ -44,6 +45,5 @@ try typing 'addmyown' in the add library input in top menu bar. ('reset' to rese
 + Add tips
 + Allow executing selected code
 + Toggle script eval context (global or local)
-+ Load script according to code (certain code pattern: `// @@LOAD_SCRIPT(url)`)
 + Add push-to-client update message
 + Persist settings (vim)
