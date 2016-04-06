@@ -53,7 +53,8 @@ class Editor extends Component {
     editor.$blockScrolling = Infinity // disable warning message
     editor.setValue(initText)
     this._loadLibs()
-    editor.gotoLine(1)
+    const row = editor.session.getLength()
+    editor.gotoLine(row)
     editor.focus()
   }
 

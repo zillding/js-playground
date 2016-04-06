@@ -34,12 +34,12 @@ export function generateNonDupInt(low, high) {
 
 const CONTENT_KEY = 'content'
 export function persistContent(text) {
-  setPersist(CONTENT_KEY, text)
+  setPersist(CONTENT_KEY, text.trim())
 }
 
 export function getPersistContent() {
   const persistContent = getPersist(CONTENT_KEY) || ''
-  return persistContent.trim() || welcome.trim()
+  return `${persistContent.trim() || welcome.trim()}\n`
 }
 
 const DEFAULT_LIBRARIES_KEY = 'default-libraries'

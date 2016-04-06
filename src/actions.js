@@ -5,7 +5,7 @@ import { addNotification } from './components/NotificationSystem'
 import { focusOnEditor } from './components/Editor'
 
 export function setEditorContent(text) {
-  persistContent(text.trim && text.trim())
+  persistContent(text)
   return { type: 'SET_EDITOR_CONTENT', text }
 }
 
