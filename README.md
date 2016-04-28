@@ -39,10 +39,3 @@ run `npm run build` to build static assets in folder `dist`
 + Persist settings (vim)
 + (easter egg) If you find any script you used very frequently and want to add to default select,
 try typing 'addmyown' in the add library input in top menu bar. ('reset' to reset) See what happens!!!
-
-## TODO
-
-+ Add tips
-+ Add settings panel to accommadate more settings
-+ Allow executing selected code
-+ Add push-to-client update message

@@ -7,7 +7,6 @@
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:webpack",
     "start": "node devServer.js",
-    "cp": "cp dist/* ../zillding.github.io/js-playground/dist",
     "deploy": "npm run build && npm run cp"
   },
   "repository": {
