@@ -36,7 +36,7 @@
     "lodash": "^4.6.1",
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
-    "react-flex": "^1.2.3",
+    "react-flex": "^2.2.8",
     "react-notification-system": "^0.2.6",
     "react-redux": "^4.4.1",
     "react-toggle": "^2.0.1",
