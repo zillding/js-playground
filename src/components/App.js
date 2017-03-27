@@ -25,8 +25,9 @@ const editorContainerStyle = {
 const App = () => (
   <Flex
     column
-    alignItems={'stretch'}
-    style={containerStyle}>
+    alignItems="stretch"
+    style={containerStyle}
+  >
     <Item flex={0}>
       <MenuBar/>
     </Item>

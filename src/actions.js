@@ -1,4 +1,5 @@
 import find from 'lodash/find'
+import isString from 'lodash/isString'
 
 import { loadJs, persistContent, setPersistVimMode } from './lib/utils'
 import { addNotification } from './components/NotificationSystem'
@@ -99,7 +100,12 @@ function errorLoadLibrary(index) {
 export function evalText(text) {
   // eval the js code in the global context
   // so can access everything in the developer console
-  eval.call(window, text)
+  const result = eval.call(window, text)
+
+  console.log(
+    '%c→', 'color: darkgrey',
+    isString(result) ? JSON.stringify(result) : result
+  )
 }
 
 function urlIsLoaded(libraries, url) {
