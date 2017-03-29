@@ -17,6 +17,7 @@ class Editor extends Component {
       vimModeOn,
       onChange,
       onRunRequest,
+      onClearRequest,
       onAddLibRequest
     } = this.props
 
@@ -36,6 +37,14 @@ class Editor extends Component {
         mac: 'Command-Enter'
       },
       exec: editor => onRunRequest(editor.getValue())
+    })
+    editor.commands.addCommand({
+      name: 'clearCommand',
+      bindKey: {
+        win: 'Ctrl-k',
+        mac: 'Command-k'
+      },
+      exec: editor => onClearRequest()
     })
     editor.commands.addCommand({
       name: 'addLibCommand',
@@ -85,6 +94,7 @@ Editor.propTypes = {
   vimModeOn: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
   onRunRequest: PropTypes.func.isRequired,
+  onClearRequest: PropTypes.func.isRequired,
   onAddLibRequest: PropTypes.func.isRequired,
   onLoadLibraryRequest: PropTypes.func.isRequired
 }

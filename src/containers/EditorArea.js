@@ -2,7 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { getPersistContent } from '../lib/utils'
-import { setEditorContent, evalText, addLibrary } from '../actions'
+import {
+  setEditorContent,
+  evalText,
+  clearConsole,
+  addLibrary
+} from '../actions'
 import { focusOnAddLibInput } from '../components/AddLibrary'
 
 import Editor from '../components/Editor'
@@ -31,6 +36,7 @@ const EditorArea = ({
       vimModeOn={editorVimModeEnabled}
       onChange={onEditorContentChange}
       onRunRequest={evalText}
+      onClearRequest={clearConsole}
       onAddLibRequest={focusOnAddLibInput}
       onLoadLibraryRequest={onLoadLibraryRequest} />
   </div>

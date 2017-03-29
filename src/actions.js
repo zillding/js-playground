@@ -108,6 +108,10 @@ export function evalText(text) {
   )
 }
 
+export function clearConsole() {
+  console.clear && console.clear();
+}
+
 function urlIsLoaded(libraries, url) {
   if (find(libraries, { url, status: 'loaded' })) return true
   return false
