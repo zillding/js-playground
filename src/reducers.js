@@ -17,65 +17,62 @@ state object:
 }
  */
 
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 import {
   getPersistDefaultLibraries,
   setPersistDefaultLibraries,
   getPersistVimMode
-} from './lib/utils'
+} from './lib/utils';
 
 function defaultLibraries(state = getPersistDefaultLibraries(), action) {
   switch (action.type) {
     case 'ADD_DEFAULT_LIBRARY':
-      const result = [
-        ...state,
-        action.library
-      ]
-      setPersistDefaultLibraries(result)
-      return result
+      const result = [...state, action.library];
+      setPersistDefaultLibraries(result);
+      return result;
     case 'RESET_DEFAULT_LIBRARIES':
-      setPersistDefaultLibraries([])
-      return getPersistDefaultLibraries()
+      setPersistDefaultLibraries([]);
+      return getPersistDefaultLibraries();
     default:
-      return state
+      return state;
   }
 }
 
 function editorContent(state = '', action) {
   switch (action.type) {
     case 'SET_EDITOR_CONTENT':
-      return action.text
+      return action.text;
     default:
-      return state
+      return state;
   }
 }
 
 function editorVimModeEnabled(state = getPersistVimMode(), action) {
   switch (action.type) {
     case 'TOGGLE_EDITOR_VIM_MODE':
-      return !state
+      return !state;
     default:
-      return state
+      return state;
   }
 }
 
 function addDefaultLibraryIsOpen(state = false, action) {
   switch (action.type) {
     case 'TOGGLE_ADD_DEFAULT_LIBRARY':
-      if (typeof action.mode === 'undefined') return !state
-      if (action.mode) return true
-      return false
+      if (typeof action.mode === 'undefined') return !state;
+      if (action.mode) return true;
+      return false;
     default:
-      return state
+      return state;
   }
 }
 
 function libraryListIsOpen(state = false, action) {
   switch (action.type) {
     case 'TOGGLE_LIBRARY_LIST':
-      return !state
+      return !state;
     default:
-      return state
+      return state;
   }
 }
 
@@ -87,27 +84,27 @@ function libraries(state = [], action) {
         Object.assign({}, action.library, {
           status: 'loading'
         })
-      ]
+      ];
     case 'FINISH_LOAD_LIBRARY':
       return state.map((library, index) => {
         if (index === action.index) {
           return Object.assign({}, library, {
             status: 'loaded'
-          })
+          });
         }
-        return library
-      })
+        return library;
+      });
     case 'ERROR_LOAD_LIBRARY':
       return state.map((library, index) => {
         if (index === action.index) {
           return Object.assign({}, library, {
             status: 'error'
-          })
+          });
         }
-        return library
-      })
+        return library;
+      });
     default:
-      return state
+      return state;
   }
 }
 
@@ -118,6 +115,6 @@ const app = combineReducers({
   addDefaultLibraryIsOpen,
   libraryListIsOpen,
   libraries
-})
+});
 
-export default app
+export default app;

@@ -1,15 +1,13 @@
-import React from 'react'
+import React from 'react';
 
 const LibraryListPanelToggle = ({ libraryListIsOpen, onToggleLibraryList }) => {
-  const label = libraryListIsOpen ? 'Hide Libraries' : 'Show Libraries'
+  const label = libraryListIsOpen ? 'Hide Libraries' : 'Show Libraries';
 
   return (
-    <button
-      style={{marginLeft: 5}}
-      onClick={onToggleLibraryList}>
+    <button style={{ marginLeft: 5 }} onClick={onToggleLibraryList}>
       {label}
     </button>
-  )
-}
+  );
+};
 
-export default LibraryListPanelToggle
+export default LibraryListPanelToggle;

@@ -1,15 +1,15 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react';
 
-import { generateNonDupInt } from '../lib/utils'
+import { generateNonDupInt } from '../lib/utils';
 
 class DefaultLibraries extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       selectClassName: ''
-    }
+    };
 
-    this._handleSelect = this._handleSelect.bind(this)
+    this._handleSelect = this._handleSelect.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -22,9 +22,9 @@ class DefaultLibraries extends Component {
   }
 
   _handleSelect(e) {
-    const { data, onSelect } = this.props
-    const index = e.target.value
-    onSelect(data[index])
+    const { data, onSelect } = this.props;
+    const index = e.target.value;
+    onSelect(data[index]);
   }
 
   render() {
@@ -32,26 +32,25 @@ class DefaultLibraries extends Component {
       <select
         className={this.state.selectClassName}
         value="default"
-        onChange={this._handleSelect}>
+        onChange={this._handleSelect}
+      >
         <option value="default">Add Library</option>
-        {
-          this.props.data.map((lib, index) => (
-            <option key={index} value={index}>
-              {lib.name || lib.url}
-            </option>
-          ))
-        }
+        {this.props.data.map((lib, index) => (
+          <option key={index} value={index}>
+            {lib.name || lib.url}
+          </option>
+        ))}
       </select>
-    )
+    );
   }
 }
 
 DefaultLibraries.propTypes = {
   data: PropTypes.array.isRequired,
   onSelect: PropTypes.func.isRequired
-}
+};
 
-export default DefaultLibraries
+export default DefaultLibraries;
 
 function getClassName() {
   // generate a random non duplicated
@@ -66,7 +65,7 @@ function getClassName() {
     'tada',
     'wobble',
     'jello'
-  ]
-  const index = generateNonDupInt(0, classArray.length - 1)
-  return `animated ${classArray[index]}`
+  ];
+  const index = generateNonDupInt(0, classArray.length - 1);
+  return `animated ${classArray[index]}`;
 }

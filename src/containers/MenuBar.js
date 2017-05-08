@@ -1,7 +1,7 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { Flex, Item } from 'react-flex'
-require('react-flex/index.css')
+import React from 'react';
+import { connect } from 'react-redux';
+import { Flex, Item } from 'react-flex';
+require('react-flex/index.css');
 
 import {
   toggleLibraryList,
@@ -9,21 +9,21 @@ import {
   resetDefaultLibraries,
   toggleEditorVimMode,
   addLibrary
-} from '../actions'
+} from '../actions';
 
-import Seperator from '../components/MenuBarSeperator'
-import DefaultLibraries from '../components/DefaultLibraries'
-import AddLibrary from '../components/AddLibrary'
-import VimToggle from '../components/VimToggle'
-import LibraryLoadingIndicator from '../components/LibraryLoadingIndicator'
-import LibraryListPanelToggle from '../components/LibraryListPanelToggle'
+import Seperator from '../components/MenuBarSeperator';
+import DefaultLibraries from '../components/DefaultLibraries';
+import AddLibrary from '../components/AddLibrary';
+import VimToggle from '../components/VimToggle';
+import LibraryLoadingIndicator from '../components/LibraryLoadingIndicator';
+import LibraryListPanelToggle from '../components/LibraryListPanelToggle';
 
 const itemStyle = {
   margin: 5
-}
+};
 const rightItemStyle = Object.assign({}, itemStyle, {
   marginLeft: 'auto'
-})
+});
 
 const MenuBar = ({
   defaultLibraries,
@@ -36,41 +36,37 @@ const MenuBar = ({
   onToggleVimMode,
   onAddLibrary
 }) => (
-  <Flex style={{overflow: 'auto'}}>
+  <Flex style={{ overflow: 'auto' }}>
     <Item flex={0} style={itemStyle}>
       <span>JS Playground</span>
     </Item>
-    <Seperator/>
+    <Seperator />
     <Item flex={0} style={itemStyle}>
-      <DefaultLibraries
-        data={defaultLibraries}
-        onSelect={onAddLibrary} />
+      <DefaultLibraries data={defaultLibraries} onSelect={onAddLibrary} />
     </Item>
-    <Seperator/>
+    <Seperator />
     <Item flex={0} style={itemStyle}>
       <AddLibrary
         onAdd={onAddLibrary}
         onAddDefaultRequest={onAddDefaultLibraryRequest}
-        onResetDefaultRequest={onResetDefaultLibrariesRequest} />
+        onResetDefaultRequest={onResetDefaultLibrariesRequest}
+      />
     </Item>
-    <Seperator/>
+    <Seperator />
     <Item flex={0} style={itemStyle}>
-      <VimToggle
-        on={editorVimModeEnabled}
-        onToggle={onToggleVimMode} />
+      <VimToggle on={editorVimModeEnabled} onToggle={onToggleVimMode} />
     </Item>
-    {
-      libraries.length > 0 ?
-        <Item flex={0} style={rightItemStyle}>
+    {libraries.length > 0
+      ? <Item flex={0} style={rightItemStyle}>
           <LibraryLoadingIndicator libraries={libraries} />
           <LibraryListPanelToggle
             libraryListIsOpen={libraryListIsOpen}
-            onToggleLibraryList={onToggleLibraryList} />
-        </Item> :
-        null
-    }
+            onToggleLibraryList={onToggleLibraryList}
+          />
+        </Item>
+      : null}
   </Flex>
-)
+);
 
 const mapStateToProps = state => {
   return {
@@ -78,8 +74,8 @@ const mapStateToProps = state => {
     libraryListIsOpen: state.libraryListIsOpen,
     editorVimModeEnabled: state.editorVimModeEnabled,
     libraries: state.libraries
-  }
-}
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -88,12 +84,9 @@ const mapDispatchToProps = dispatch => {
     onAddDefaultLibraryRequest: () => dispatch(toggleAddDefaultLibrary(true)),
     onResetDefaultLibrariesRequest: () => dispatch(resetDefaultLibraries()),
     onToggleVimMode: () => dispatch(toggleEditorVimMode())
-  }
-}
+  };
+};
 
-const MenuBarComponent = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MenuBar)
+const MenuBarComponent = connect(mapStateToProps, mapDispatchToProps)(MenuBar);
 
-export default MenuBarComponent
+export default MenuBarComponent;

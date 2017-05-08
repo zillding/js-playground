@@ -1,50 +1,50 @@
-import React, { Component, PropTypes } from 'react'
-import { isUri } from 'valid-url'
+import React, { Component, PropTypes } from 'react';
+import { isUri } from 'valid-url';
 
-import { focusOnEditor } from './Editor'
+import { focusOnEditor } from './Editor';
 
-let inputDom = null
+let inputDom = null;
 
 class AddLibrary extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       url: ''
-    }
+    };
 
-    this._handleAddClick = this._handleAddClick.bind(this)
-    this._handleInputChange = this._handleInputChange.bind(this)
-    this._handleKeyPress = this._handleKeyPress.bind(this)
+    this._handleAddClick = this._handleAddClick.bind(this);
+    this._handleInputChange = this._handleInputChange.bind(this);
+    this._handleKeyPress = this._handleKeyPress.bind(this);
   }
 
   componentDidMount() {
-    inputDom = this.refs.input
+    inputDom = this.refs.input;
   }
 
   _handleAddClick() {
-    const { onAdd, onAddDefaultRequest, onResetDefaultRequest } = this.props
-    const { url } = this.state
+    const { onAdd, onAddDefaultRequest, onResetDefaultRequest } = this.props;
+    const { url } = this.state;
 
     // secret message to open the add default library
     // portal
     if (url === 'addmyown') {
-      onAddDefaultRequest()
-      this.setState({ url: '' })
+      onAddDefaultRequest();
+      this.setState({ url: '' });
     }
 
     if (url === 'reset') {
-      onResetDefaultRequest()
-      this.setState({ url: '' })
+      onResetDefaultRequest();
+      this.setState({ url: '' });
     }
 
     if (isUri(url)) {
-      this.props.onAdd({ url })
-      this.setState({ url: '' })
+      this.props.onAdd({ url });
+      this.setState({ url: '' });
     }
   }
 
   _handleInputChange(e) {
-    const url = e.target.value
+    const url = e.target.value;
     this.setState({ url });
   }
 
@@ -52,17 +52,17 @@ class AddLibrary extends Component {
     switch (e.which) {
       case 13:
         // enter
-        return this._handleAddClick()
+        return this._handleAddClick();
       case 27:
         // escape
-        return focusOnEditor()
+        return focusOnEditor();
       default:
-        return
+        return;
     }
   }
 
   render() {
-    const { url } = this.state
+    const { url } = this.state;
 
     return (
       <span>
@@ -72,14 +72,13 @@ class AddLibrary extends Component {
           value={url}
           placeholder="Paste script url here"
           onKeyUp={this._handleKeyPress}
-          onChange={this._handleInputChange} />
-        <button
-          disabled={!isUri(url)}
-          onClick={this._handleAddClick}>
+          onChange={this._handleInputChange}
+        />
+        <button disabled={!isUri(url)} onClick={this._handleAddClick}>
           Add
         </button>
       </span>
-    )
+    );
   }
 }
 
@@ -87,10 +86,10 @@ AddLibrary.propTypes = {
   onAdd: PropTypes.func.isRequired,
   onAddDefaultRequest: PropTypes.func.isRequired,
   onResetDefaultRequest: PropTypes.func.isRequired
-}
+};
 
-export default AddLibrary
+export default AddLibrary;
 
 export function focusOnAddLibInput() {
-  if (inputDom) inputDom.focus()
+  if (inputDom) inputDom.focus();
 }
