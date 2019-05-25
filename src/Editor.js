@@ -29,8 +29,7 @@ class Editor extends Component {
       vimModeOn,
       onChange,
       onRunRequest,
-      onClearRequest,
-      onAddLibRequest
+      onClearRequest
     } = this.props;
 
     const editor = window.ace.edit('editor');
@@ -60,14 +59,6 @@ class Editor extends Component {
         mac: 'Command-k'
       },
       exec: editor => onClearRequest()
-    });
-    editor.commands.addCommand({
-      name: 'addLibCommand',
-      bindKey: {
-        win: 'Ctrl-p',
-        mac: 'Command-p'
-      },
-      exec: onAddLibRequest
     });
     editor.commands.addCommand({
       name: 'searchLibCommand',
@@ -144,7 +135,6 @@ Editor.propTypes = {
   onChange: PropTypes.func.isRequired,
   onRunRequest: PropTypes.func.isRequired,
   onClearRequest: PropTypes.func.isRequired,
-  onAddLibRequest: PropTypes.func.isRequired,
   onLoadLibraryRequest: PropTypes.func.isRequired
 };
 

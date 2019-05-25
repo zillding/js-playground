@@ -8,7 +8,6 @@ import {
   clearConsole,
   addLibrary
 } from './actions';
-import { focusOnAddLibInput } from './AddLibrary';
 
 import Editor from './Editor';
 
@@ -35,7 +34,6 @@ const EditorArea = ({
       onChange={onEditorContentChange}
       onRunRequest={evalText}
       onClearRequest={clearConsole}
-      onAddLibRequest={focusOnAddLibInput}
       onLoadLibraryRequest={onLoadLibraryRequest}
     />
   </div>

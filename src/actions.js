@@ -60,35 +60,6 @@ export function addLibrary(library) {
   };
 }
 
-export function addDefaultLibrary(library) {
-  return (dispatch, getState) => {
-    const { defaultLibraries } = getState();
-    const { name, url } = library;
-
-    if (urlIsLoaded(defaultLibraries, url))
-      return addNotification({
-        title: 'This library is already loaded.',
-        message: url,
-        level: 'warning'
-      });
-
-    dispatch({ type: 'ADD_DEFAULT_LIBRARY', library });
-    addNotification({
-      title: 'Script added to default select!',
-      message: name,
-      level: 'success'
-    });
-  };
-}
-
-export function resetDefaultLibraries() {
-  return { type: 'RESET_DEFAULT_LIBRARIES' };
-}
-
-export function toggleAddDefaultLibrary(mode) {
-  return { type: 'TOGGLE_ADD_DEFAULT_LIBRARY', mode };
-}
-
 function finishLoadLibrary(index) {
   return { type: 'FINISH_LOAD_LIBRARY', index };
 }

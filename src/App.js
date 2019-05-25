@@ -1,7 +1,6 @@
 import React from 'react';
 
 import MenuBar from './MenuBar';
-import AddDefaultLibraryPanel from './AddDefaultLibraryPanel';
 import LibraryListPanel from './LibraryListPanel';
 import EditorArea from './EditorArea';
 import NotificationSystem from './NotificationSystem';
@@ -26,9 +25,6 @@ const App = () => (
   <div style={containerStyle}>
     <div style={itemStyle}>
       <MenuBar />
-    </div>
-    <div style={itemStyle}>
-      <AddDefaultLibraryPanel />
     </div>
     <div style={itemStyle}>
       <LibraryListPanel />

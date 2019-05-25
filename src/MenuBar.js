@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { toggleLibraryList, toggleEditorVimMode, addLibrary } from './actions';
+import { toggleLibraryList, toggleEditorVimMode } from './actions';
 
 import VimToggle from './VimToggle';
 import LibraryLoadingIndicator from './LibraryLoadingIndicator';
@@ -14,8 +14,7 @@ function MenuBar({
   editorVimModeEnabled,
   libraries,
   onToggleLibraryList,
-  onToggleVimMode,
-  onAddLibrary
+  onToggleVimMode
 }) {
   return (
     <div
@@ -49,7 +48,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onAddLibrary: library => dispatch(addLibrary(library)),
   onToggleLibraryList: () => dispatch(toggleLibraryList()),
   onToggleVimMode: () => dispatch(toggleEditorVimMode())
 });
