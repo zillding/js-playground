@@ -39,7 +39,7 @@ class AddLibrary extends Component {
     }
 
     if (isUri(url)) {
-      this.props.onAdd({ url });
+      onAdd({ url });
       this.setState({ url: '' });
     }
   }
