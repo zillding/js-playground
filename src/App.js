@@ -1,9 +1,9 @@
 import React from 'react';
 
-import MenuBar from '../containers/MenuBar';
-import AddDefaultLibraryPanel from '../containers/AddDefaultLibraryPanel';
-import LibraryListPanel from '../containers/LibraryListPanel';
-import EditorArea from '../containers/EditorArea';
+import MenuBar from './MenuBar';
+import AddDefaultLibraryPanel from './AddDefaultLibraryPanel';
+import LibraryListPanel from './LibraryListPanel';
+import EditorArea from './EditorArea';
 import NotificationSystem from './NotificationSystem';
 
 const containerStyle = {

@@ -7,14 +7,14 @@ import {
   resetDefaultLibraries,
   toggleEditorVimMode,
   addLibrary
-} from '../actions';
+} from './actions';
 
-import Seperator from '../components/MenuBarSeperator';
-import DefaultLibraries from '../components/DefaultLibraries';
-import AddLibrary from '../components/AddLibrary';
-import VimToggle from '../components/VimToggle';
-import LibraryLoadingIndicator from '../components/LibraryLoadingIndicator';
-import LibraryListPanelToggle from '../components/LibraryListPanelToggle';
+import Seperator from './MenuBarSeperator';
+import DefaultLibraries from './DefaultLibraries';
+import AddLibrary from './AddLibrary';
+import VimToggle from './VimToggle';
+import LibraryLoadingIndicator from './LibraryLoadingIndicator';
+import LibraryListPanelToggle from './LibraryListPanelToggle';
 
 const itemStyle = {
   flexShrink: 0,
@@ -55,15 +55,15 @@ const MenuBar = ({
     <div style={itemStyle}>
       <VimToggle on={editorVimModeEnabled} onToggle={onToggleVimMode} />
     </div>
-    {libraries.length > 0
-      ? <div style={rightItemStyle}>
-          <LibraryLoadingIndicator libraries={libraries} />
-          <LibraryListPanelToggle
-            libraryListIsOpen={libraryListIsOpen}
-            onToggleLibraryList={onToggleLibraryList}
-          />
-        </div>
-      : null}
+    {libraries.length > 0 ? (
+      <div style={rightItemStyle}>
+        <LibraryLoadingIndicator libraries={libraries} />
+        <LibraryListPanelToggle
+          libraryListIsOpen={libraryListIsOpen}
+          onToggleLibraryList={onToggleLibraryList}
+        />
+      </div>
+    ) : null}
   </div>
 );
 
@@ -86,6 +86,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const MenuBarComponent = connect(mapStateToProps, mapDispatchToProps)(MenuBar);
+const MenuBarComponent = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MenuBar);
 
 export default MenuBarComponent;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { generateNonDupInt } from '../lib/utils';
+import { generateNonDupInt } from './lib/utils';
 
 class DefaultLibraries extends Component {
   constructor(props) {

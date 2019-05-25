@@ -2,8 +2,8 @@ import find from 'lodash/find';
 import isString from 'lodash/isString';
 
 import { loadJs, persistContent, setPersistVimMode } from './lib/utils';
-import { addNotification } from './components/NotificationSystem';
-import { focusOnEditor } from './components/Editor';
+import { addNotification } from './NotificationSystem';
+import { focusOnEditor } from './Editor';
 
 export function setEditorContent(text) {
   persistContent(text);

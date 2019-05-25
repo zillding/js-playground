@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { addDefaultLibrary, toggleAddDefaultLibrary } from '../actions';
+import { addDefaultLibrary, toggleAddDefaultLibrary } from './actions';
 
-import AddDefaultLibrary from '../components/AddDefaultLibrary';
+import AddDefaultLibrary from './AddDefaultLibrary';
 
 const AddDefaultLibraryPanel = ({ addDefaultLibraryIsOpen, onAdd, onDone }) => {
   if (!addDefaultLibraryIsOpen) return <div />;
@@ -24,8 +24,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const Panel = connect(mapStateToProps, mapDispatchToProps)(
-  AddDefaultLibraryPanel
-);
+const Panel = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddDefaultLibraryPanel);
 
 export default Panel;

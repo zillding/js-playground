@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import LibraryList from '../components/LibraryList';
+import LibraryList from './LibraryList';
 
 const LibraryListPanel = ({ libraryListIsOpen, libraries }) => {
   if (!libraryListIsOpen) return <div />;

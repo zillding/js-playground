@@ -1,16 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getPersistContent } from '../lib/utils';
+import { getPersistContent } from './lib/utils';
 import {
   setEditorContent,
   evalText,
   clearConsole,
   addLibrary
-} from '../actions';
-import { focusOnAddLibInput } from '../components/AddLibrary';
+} from './actions';
+import { focusOnAddLibInput } from './AddLibrary';
 
-import Editor from '../components/Editor';
+import Editor from './Editor';
 
 const buttonStyle = {
   position: 'absolute',
@@ -55,8 +55,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const EditorAreaComponent = connect(mapStateToProps, mapDispatchToProps)(
-  EditorArea
-);
+const EditorAreaComponent = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EditorArea);
 
 export default EditorAreaComponent;
