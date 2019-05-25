@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Flex, Item } from 'react-flex';
-require('react-flex/index.css');
 
 import {
   toggleLibraryList,
@@ -19,6 +17,7 @@ import LibraryLoadingIndicator from '../components/LibraryLoadingIndicator';
 import LibraryListPanelToggle from '../components/LibraryListPanelToggle';
 
 const itemStyle = {
+  flex: 0,
   margin: 5
 };
 const rightItemStyle = Object.assign({}, itemStyle, {
@@ -36,36 +35,36 @@ const MenuBar = ({
   onToggleVimMode,
   onAddLibrary
 }) => (
-  <Flex style={{ overflow: 'auto' }}>
-    <Item flex={0} style={itemStyle}>
+  <div style={{ display: 'flex', overflow: 'auto' }}>
+    <div style={itemStyle}>
       <span>JS Playground</span>
-    </Item>
+    </div>
     <Seperator />
-    <Item flex={0} style={itemStyle}>
+    <div style={itemStyle}>
       <DefaultLibraries data={defaultLibraries} onSelect={onAddLibrary} />
-    </Item>
+    </div>
     <Seperator />
-    <Item flex={0} style={itemStyle}>
+    <div style={itemStyle}>
       <AddLibrary
         onAdd={onAddLibrary}
         onAddDefaultRequest={onAddDefaultLibraryRequest}
         onResetDefaultRequest={onResetDefaultLibrariesRequest}
       />
-    </Item>
+    </div>
     <Seperator />
-    <Item flex={0} style={itemStyle}>
+    <div style={itemStyle}>
       <VimToggle on={editorVimModeEnabled} onToggle={onToggleVimMode} />
-    </Item>
+    </div>
     {libraries.length > 0
-      ? <Item flex={0} style={rightItemStyle}>
+      ? <div style={rightItemStyle}>
           <LibraryLoadingIndicator libraries={libraries} />
           <LibraryListPanelToggle
             libraryListIsOpen={libraryListIsOpen}
             onToggleLibraryList={onToggleLibraryList}
           />
-        </Item>
+        </div>
       : null}
-  </Flex>
+  </div>
 );
 
 const mapStateToProps = state => {

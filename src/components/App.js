@@ -1,6 +1,4 @@
-import React, { Component } from 'react';
-import { Flex, Item } from 'react-flex';
-import 'react-flex/index.css';
+import React from 'react';
 
 import '../style.css';
 
@@ -11,33 +9,36 @@ import EditorArea from '../containers/EditorArea';
 import NotificationSystem from './NotificationSystem';
 
 const containerStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'stretch',
   position: 'fixed',
   top: 0,
   bottom: 0,
   left: 0,
   right: 0
 };
-
+const itemStyle = { flex: 0 };
 const editorContainerStyle = {
   position: 'relative'
 };
 
 const App = () => (
-  <Flex column alignItems="stretch" style={containerStyle}>
-    <Item flex={0}>
+  <dik style={containerStyle}>
+    <div style={itemStyle}>
       <MenuBar />
-    </Item>
-    <Item flex={0}>
+    </div>
+    <div style={itemStyle}>
       <AddDefaultLibraryPanel />
-    </Item>
-    <Item flex={0}>
+    </div>
+    <div style={itemStyle}>
       <LibraryListPanel />
-    </Item>
-    <Item style={editorContainerStyle}>
+    </div>
+    <div style={editorContainerStyle}>
       <EditorArea />
-    </Item>
+    </div>
     <NotificationSystem />
-  </Flex>
+  </dik>
 );
 
 export default App;
