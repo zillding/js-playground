@@ -1,7 +1,5 @@
 import React from 'react';
 
-import '../style.css';
-
 import MenuBar from '../containers/MenuBar';
 import AddDefaultLibraryPanel from '../containers/AddDefaultLibraryPanel';
 import LibraryListPanel from '../containers/LibraryListPanel';
