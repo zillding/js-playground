@@ -8,7 +8,7 @@ const VimToggle = ({ on, onToggle }) => {
 
   return (
     <label>
-      <Toggle defaultChecked={on} onChange={onToggle} />
+      <Toggle checked={on} onChange={onToggle} />
       <span style={{ verticalAlign: 'middle' }}>{text}</span>
     </label>
   );
