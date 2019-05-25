@@ -1,23 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import {
-  toggleLibraryList,
-  toggleAddDefaultLibrary,
-  resetDefaultLibraries,
-  toggleEditorVimMode,
-  addLibrary
-} from './actions';
+import { toggleLibraryList, toggleEditorVimMode, addLibrary } from './actions';
 
-import DefaultLibraries from './DefaultLibraries';
 import VimToggle from './VimToggle';
 import LibraryLoadingIndicator from './LibraryLoadingIndicator';
 import LibraryListPanelToggle from './LibraryListPanelToggle';
+import SearchLibraryModal from './SearchLibraryModal';
 
 const Seperator = () => <span style={{ margin: '0 4px' }}>|</span>;
 
 function MenuBar({
-  defaultLibraries,
   libraryListIsOpen,
   editorVimModeEnabled,
   libraries,
@@ -25,6 +18,8 @@ function MenuBar({
   onToggleVimMode,
   onAddLibrary
 }) {
+  const [modalIsOpen, setModalIsOpen] = useState(true);
+
   return (
     <div
       style={{
@@ -38,9 +33,7 @@ function MenuBar({
       <Seperator />
       <VimToggle on={editorVimModeEnabled} onToggle={onToggleVimMode} />
       <Seperator />
-      <button>Add Library</button>
-      <Seperator />
-      <DefaultLibraries data={defaultLibraries} onSelect={onAddLibrary} />
+      <button onClick={() => setModalIsOpen(true)}>Add Library</button>
       {libraries.length > 0 && (
         <div style={{ marginLeft: 'auto' }}>
           <LibraryLoadingIndicator libraries={libraries} />
@@ -50,12 +43,17 @@ function MenuBar({
           />
         </div>
       )}
+
+      <SearchLibraryModal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        onAdd={onAddLibrary}
+      />
     </div>
   );
 }
 
 const mapStateToProps = state => ({
-  defaultLibraries: state.defaultLibraries,
   libraryListIsOpen: state.libraryListIsOpen,
   editorVimModeEnabled: state.editorVimModeEnabled,
   libraries: state.libraries
@@ -64,8 +62,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onAddLibrary: library => dispatch(addLibrary(library)),
   onToggleLibraryList: () => dispatch(toggleLibraryList()),
-  onAddDefaultLibraryRequest: () => dispatch(toggleAddDefaultLibrary(true)),
-  onResetDefaultLibrariesRequest: () => dispatch(resetDefaultLibraries()),
   onToggleVimMode: () => dispatch(toggleEditorVimMode())
 });
 
