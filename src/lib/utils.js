@@ -4,7 +4,7 @@ import random from 'lodash/random';
 import { getPersist, setPersist } from './persist';
 
 import defaultLibraries from './libraries.config';
-import welcome from 'raw!./welcome.config.txt';
+import welcome from './welcome.txt';
 
 export function loadJs(src) {
   return new Promise((resolve, reject) => {
