@@ -3,10 +3,13 @@ export default `
 
 // Made with ❤ By Zill Ding at https://github.com/zillding/js-playground
 
-// shortcuts:
-// cmd+enter: run code
-// cmd+k:     clear console
-// cmd+s:     format code
+// key bindings:
+// |    mac    |     pc     |                |
+// |:---------:|:----------:|----------------|
+// | cmd+enter | ctrl+enter | run code       |
+// | cmd+k     | ctrl+k     | clear console  |
+// | cmd+s     | ctrl+s     | format code    |
+// | cmd+o     | ctrl+o     | search library |
 
 alert('This is an AWESOME app!')
 console.log('Happy coooooding') // open developer console to view result
