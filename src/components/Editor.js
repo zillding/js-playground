@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
+import prettier from 'prettier/standalone';
+import babylon from 'prettier/parser-babylon';
 
 const editorStyle = {
   position: 'absolute',
@@ -56,6 +58,20 @@ class Editor extends Component {
         mac: 'Command-p'
       },
       exec: onAddLibRequest
+    });
+    editor.commands.addCommand({
+      name: 'formatCommand',
+      bindKey: {
+        win: 'Ctrl-s',
+        mac: 'Command-s'
+      },
+      exec: editor =>
+        editor.setValue(
+          prettier.format(editor.getValue(), {
+            parser: 'babel',
+            plugins: [babylon]
+          })
+        )
     });
     editor.$blockScrolling = Infinity; // disable warning message
     editor.setValue(initText);

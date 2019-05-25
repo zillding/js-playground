@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.11",
+    "prettier": "^1.17.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-notification-system": "^0.2.6",
@@ -29,7 +30,6 @@
   "devDependencies": {
     "husky": "^2.3.0",
     "lint-staged": "^8.1.7",
-    "prettier": "^1.17.1",
     "prettier-package-json": "^2.1.0",
     "redux-devtools-extension": "^2.13.2"
   },
