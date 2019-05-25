@@ -5,8 +5,13 @@ function VimToggle({ on, onToggle }) {
   const text = on ? 'Vim On' : 'Vim Off';
 
   return (
-    <label>
-      <input type="checkbox" checked={on} onChange={onToggle} />
+    <label style={{ cursor: 'pointer' }}>
+      <input
+        type="checkbox"
+        style={{ cursor: 'pointer' }}
+        checked={on}
+        onChange={onToggle}
+      />
       {text}
     </label>
   );
