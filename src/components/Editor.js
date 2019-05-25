@@ -89,7 +89,7 @@ class Editor extends Component {
 
   _loadLibs() {
     const { initText, onLoadLibraryRequest } = this.props;
-    const regex = /^\/\/ @@LOAD_SCRIPT\((.*)\)/;
+    const regex = /^\/\/ @@LOAD_SCRIPT\s(.*)/;
     initText.split('\n').forEach(line => {
       const [, url] = regex.exec(line) || [];
       if (url) {
