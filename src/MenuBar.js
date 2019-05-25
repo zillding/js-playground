@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import { toggleLibraryList, toggleEditorVimMode, addLibrary } from './actions';
@@ -6,7 +6,6 @@ import { toggleLibraryList, toggleEditorVimMode, addLibrary } from './actions';
 import VimToggle from './VimToggle';
 import LibraryLoadingIndicator from './LibraryLoadingIndicator';
 import LibraryListPanelToggle from './LibraryListPanelToggle';
-import SearchLibraryModal from './SearchLibraryModal';
 
 const Seperator = () => <span style={{ margin: '0 4px' }}>|</span>;
 
@@ -18,8 +17,6 @@ function MenuBar({
   onToggleVimMode,
   onAddLibrary
 }) {
-  const [modalIsOpen, setModalIsOpen] = useState(true);
-
   return (
     <div
       style={{
@@ -32,8 +29,6 @@ function MenuBar({
       <span>JS Playground</span>
       <Seperator />
       <VimToggle on={editorVimModeEnabled} onToggle={onToggleVimMode} />
-      <Seperator />
-      <button onClick={() => setModalIsOpen(true)}>Add Library</button>
       {libraries.length > 0 && (
         <div style={{ marginLeft: 'auto' }}>
           <LibraryLoadingIndicator libraries={libraries} />
@@ -43,12 +38,6 @@ function MenuBar({
           />
         </div>
       )}
-
-      <SearchLibraryModal
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
-        onAdd={onAddLibrary}
-      />
     </div>
   );
 }

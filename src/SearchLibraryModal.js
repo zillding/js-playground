@@ -56,7 +56,7 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
                   style={{ cursor: 'pointer' }}
                   onClick={() => {
                     close();
-                    onAdd({ url: latest });
+                    onAdd(latest);
                   }}
                 >
                   {name}-{latest}

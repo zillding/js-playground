@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import prettier from 'prettier/standalone';
 import babylon from 'prettier/parser-babylon';
+
+import SearchLibraryModal from './SearchLibraryModal';
 
 const editorStyle = {
   position: 'absolute',
@@ -13,6 +15,14 @@ const editorStyle = {
 let editorInstance = null;
 
 class Editor extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      modalIsOpen: false
+    };
+  }
+
   componentDidMount() {
     const {
       initText = '',
@@ -60,6 +70,16 @@ class Editor extends Component {
       exec: onAddLibRequest
     });
     editor.commands.addCommand({
+      name: 'searchLibCommand',
+      bindKey: {
+        win: 'Ctrl-o',
+        mac: 'Command-o'
+      },
+      exec: () => {
+        this.setState({ modalIsOpen: true });
+      }
+    });
+    editor.commands.addCommand({
       name: 'formatCommand',
       bindKey: {
         win: 'Ctrl-s',
@@ -99,7 +119,22 @@ class Editor extends Component {
   }
 
   render() {
-    return <div id="editor" style={editorStyle} />;
+    const { onLoadLibraryRequest } = this.props;
+    const { modalIsOpen } = this.state;
+
+    return (
+      <Fragment>
+        <div id="editor" style={editorStyle} />
+
+        <SearchLibraryModal
+          isOpen={modalIsOpen}
+          onRequestClose={() => {
+            this.setState({ modalIsOpen: false });
+          }}
+          onAdd={onLoadLibraryRequest}
+        />
+      </Fragment>
+    );
   }
 }
 
