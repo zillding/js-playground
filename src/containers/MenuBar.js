@@ -17,7 +17,7 @@ import LibraryLoadingIndicator from '../components/LibraryLoadingIndicator';
 import LibraryListPanelToggle from '../components/LibraryListPanelToggle';
 
 const itemStyle = {
-  flex: 0,
+  flexShrink: 0,
   margin: 5
 };
 const rightItemStyle = Object.assign({}, itemStyle, {
@@ -35,7 +35,7 @@ const MenuBar = ({
   onToggleVimMode,
   onAddLibrary
 }) => (
-  <div style={{ display: 'flex', overflow: 'auto' }}>
+  <div style={{ display: 'flex', alignItems: 'center', overflow: 'auto' }}>
     <div style={itemStyle}>
       <span>JS Playground</span>
     </div>

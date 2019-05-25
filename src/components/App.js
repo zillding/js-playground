@@ -20,11 +20,12 @@ const containerStyle = {
 };
 const itemStyle = { flex: 0 };
 const editorContainerStyle = {
+  flex: 1,
   position: 'relative'
 };
 
 const App = () => (
-  <dik style={containerStyle}>
+  <div style={containerStyle}>
     <div style={itemStyle}>
       <MenuBar />
     </div>
@@ -38,7 +39,7 @@ const App = () => (
       <EditorArea />
     </div>
     <NotificationSystem />
-  </dik>
+  </div>
 );
 
 export default App;

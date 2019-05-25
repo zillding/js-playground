@@ -1,4 +1,3 @@
-// global: ace
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'debounce';
@@ -22,7 +21,7 @@ class Editor extends Component {
       onAddLibRequest
     } = this.props;
 
-    const editor = ace.edit('editor');
+    const editor = window.ace.edit('editor');
     editorInstance = editor;
     editor.setTheme('ace/theme/monokai');
     editor.getSession().setMode('ace/mode/javascript');
@@ -75,7 +74,7 @@ class Editor extends Component {
   _loadLibs() {
     const { initText, onLoadLibraryRequest } = this.props;
     const regex = /^\/\/ @@LOAD_SCRIPT\((.*)\)/;
-    initText.split('\n').map(line => {
+    initText.split('\n').forEach(line => {
       const [, url] = regex.exec(line) || [];
       if (url) {
         onLoadLibraryRequest(url);
