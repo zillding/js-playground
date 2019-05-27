@@ -1,11 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import find from 'lodash/find';
 
 import { toggleLibraryList, toggleEditorVimMode } from './actions';
-
-import VimToggle from './VimToggle';
-import LibraryLoadingIndicator from './LibraryLoadingIndicator';
-import LibraryListPanelToggle from './LibraryListPanelToggle';
 
 const Seperator = () => <span style={{ margin: '0 4px' }}>|</span>;
 
@@ -27,14 +24,25 @@ function MenuBar({
     >
       <span>JS Playground</span>
       <Seperator />
-      <VimToggle on={editorVimModeEnabled} onToggle={onToggleVimMode} />
+      <label style={{ cursor: 'pointer' }}>
+        <input
+          type="checkbox"
+          style={{ cursor: 'pointer' }}
+          checked={editorVimModeEnabled}
+          onChange={onToggleVimMode}
+        />
+        {editorVimModeEnabled ? 'Vim On' : 'Vim Off'}
+      </label>
       {libraries.length > 0 && (
         <div style={{ marginLeft: 'auto' }}>
-          <LibraryLoadingIndicator libraries={libraries} />
-          <LibraryListPanelToggle
-            libraryListIsOpen={libraryListIsOpen}
-            onToggleLibraryList={onToggleLibraryList}
-          />
+          {find(libraries, { status: 'loading' }) ? (
+            <i className="fa fa-spinner fa-pulse" />
+          ) : (
+            <i className="fa fa-check" />
+          )}
+          <button style={{ marginLeft: 5 }} onClick={onToggleLibraryList}>
+            {libraryListIsOpen ? 'Hide Libraries' : 'Show Libraries'}
+          </button>
         </div>
       )}
     </div>
