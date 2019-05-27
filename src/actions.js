@@ -1,8 +1,8 @@
 import find from 'lodash/find';
 import isString from 'lodash/isString';
+import { toast } from 'react-toastify';
 
 import { loadJs, persistContent, setPersistVimMode } from './lib/utils';
-import { addNotification } from './NotificationSystem';
 import { focusOnEditor } from './Editor';
 
 export function setEditorContent(text) {
@@ -31,31 +31,21 @@ export function addLibrary(library) {
     const index = libraries.length;
     const { url, name } = library;
 
-    if (urlIsLoaded(libraries, url))
-      return addNotification({
-        title: 'This library is already loaded.',
-        message: name || url,
-        level: 'warning'
-      });
+    if (urlIsLoaded(libraries, url)) {
+      toast.warn(`The library is already loaded: ${name || url}`);
+      return;
+    }
 
     dispatch({ type: 'ADD_LIBRARY', library });
 
     loadJs(url)
       .then(e => {
         dispatch(finishLoadLibrary(index));
-        addNotification({
-          title: 'Js Loaded!',
-          message: name || url,
-          level: 'success'
-        });
+        toast.success(`JS loaded: ${name || url}`);
       })
       .catch(err => {
         dispatch(errorLoadLibrary(index));
-        addNotification({
-          title: 'Js Load Failed...',
-          message: name || url,
-          level: 'error'
-        });
+        toast.error(`JS load failed: ${name || url}`);
       });
   };
 }

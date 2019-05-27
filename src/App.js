@@ -1,9 +1,14 @@
 import React from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import MenuBar from './MenuBar';
 import LibraryListPanel from './LibraryListPanel';
 import EditorArea from './EditorArea';
-import NotificationSystem from './NotificationSystem';
+
+toast.configure({
+  position: toast.POSITION.BOTTOM_RIGHT
+});
 
 const containerStyle = {
   display: 'flex',
@@ -32,7 +37,6 @@ const App = () => (
     <div style={editorContainerStyle}>
       <EditorArea />
     </div>
-    <NotificationSystem />
   </div>
 );
 
