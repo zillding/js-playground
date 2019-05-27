@@ -1,16 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import debounce from 'lodash/debounce';
 import prettier from 'prettier/standalone';
 import babylon from 'prettier/parser-babylon';
+import AceEditor from 'react-ace';
 
 import SearchLibraryModal from './SearchLibraryModal';
-
-const editorStyle = {
-  position: 'absolute',
-  height: '100%',
-  width: '100%'
-};
 
 let editorInstance = null;
 
@@ -19,86 +13,17 @@ class Editor extends Component {
     super(props);
 
     this.state = {
+      value: props.initText,
       modalIsOpen: false
     };
   }
 
-  componentDidMount() {
-    const {
-      initText = '',
-      vimModeOn,
-      onChange,
-      onRunRequest,
-      onClearRequest
-    } = this.props;
+  onChange = value => {
+    this.setState({ value });
+    this.props.onChange(value);
+  };
 
-    const editor = window.ace.edit('editor');
-    editorInstance = editor;
-    editor.setTheme('ace/theme/monokai');
-    editor.getSession().setMode('ace/mode/javascript');
-    editor.getSession().setTabSize(2);
-    if (vimModeOn) editor.setKeyboardHandler('ace/keyboard/vim');
-    editor.getSession().on(
-      'change',
-      debounce(e => {
-        onChange(editor.getValue());
-      }, 500)
-    );
-    editor.commands.addCommand({
-      name: 'runCommand',
-      bindKey: {
-        win: 'Ctrl-Enter',
-        mac: 'Command-Enter'
-      },
-      exec: editor => onRunRequest(editor.getValue())
-    });
-    editor.commands.addCommand({
-      name: 'clearCommand',
-      bindKey: {
-        win: 'Ctrl-k',
-        mac: 'Command-k'
-      },
-      exec: editor => onClearRequest()
-    });
-    editor.commands.addCommand({
-      name: 'searchLibCommand',
-      bindKey: {
-        win: 'Ctrl-o',
-        mac: 'Command-o'
-      },
-      exec: () => {
-        this.setState({ modalIsOpen: true });
-      }
-    });
-    editor.commands.addCommand({
-      name: 'formatCommand',
-      bindKey: {
-        win: 'Ctrl-s',
-        mac: 'Command-s'
-      },
-      exec: editor =>
-        editor.setValue(
-          prettier.format(editor.getValue(), {
-            parser: 'babel',
-            plugins: [babylon]
-          })
-        )
-    });
-    editor.$blockScrolling = Infinity; // disable warning message
-    editor.setValue(initText);
-    this._loadLibs();
-    const row = editor.session.getLength();
-    editor.gotoLine(row);
-    editor.focus();
-  }
-
-  componentWillReceiveProps({ vimModeOn }) {
-    if (!editorInstance) return;
-    if (vimModeOn) return editorInstance.setKeyboardHandler('ace/keyboard/vim');
-    return editorInstance.setKeyboardHandler('');
-  }
-
-  _loadLibs() {
+  loadLibs() {
     const { initText, onLoadLibraryRequest } = this.props;
     const regex = /^\/\/@@\s+(\S*)/;
     initText.split('\n').forEach(line => {
@@ -110,12 +35,80 @@ class Editor extends Component {
   }
 
   render() {
-    const { onLoadLibraryRequest } = this.props;
-    const { modalIsOpen } = this.state;
+    const {
+      vimModeOn,
+      onRunRequest,
+      onClearRequest,
+      onLoadLibraryRequest
+    } = this.props;
+    const { value, modalIsOpen } = this.state;
 
     return (
       <Fragment>
-        <div id="editor" style={editorStyle} />
+        <AceEditor
+          mode="javascript"
+          theme="monokai"
+          focus
+          enableBasicAutocompletion
+          editorProps={{ $blockScrolling: Infinity }}
+          style={{
+            position: 'absolute',
+            height: '100%',
+            width: '100%'
+          }}
+          keyboardHandler={vimModeOn ? 'vim' : undefined}
+          setOptions={{
+            tabSize: 2
+          }}
+          commands={[
+            {
+              name: 'runCommand',
+              bindKey: {
+                win: 'Ctrl-Enter',
+                mac: 'Command-Enter'
+              },
+              exec: editor => onRunRequest(editor.getValue())
+            },
+            {
+              name: 'clearCommand',
+              bindKey: {
+                win: 'Ctrl-k',
+                mac: 'Command-k'
+              },
+              exec: () => onClearRequest()
+            },
+            {
+              name: 'searchLibCommand',
+              bindKey: {
+                win: 'Ctrl-o',
+                mac: 'Command-o'
+              },
+              exec: () => {
+                this.setState({ modalIsOpen: true });
+              }
+            },
+            {
+              name: 'formatCommand',
+              bindKey: {
+                win: 'Ctrl-s',
+                mac: 'Command-s'
+              },
+              exec: editor =>
+                editor.setValue(
+                  prettier.format(editor.getValue(), {
+                    parser: 'babel',
+                    plugins: [babylon]
+                  })
+                )
+            }
+          ]}
+          value={value}
+          onLoad={o => {
+            editorInstance = o;
+            this.loadLibs();
+          }}
+          onChange={this.onChange}
+        />
 
         <SearchLibraryModal
           isOpen={modalIsOpen}
