@@ -1,5 +1,4 @@
 import find from 'lodash/find';
-import isString from 'lodash/isString';
 import { toast } from 'react-toastify';
 
 import { loadJs, setPersistVimMode } from './lib/utils';
@@ -51,22 +50,6 @@ function finishLoadLibrary(index) {
 
 function errorLoadLibrary(index) {
   return { type: 'ERROR_LOAD_LIBRARY', index };
-}
-
-export function evalText(text) {
-  // eval the js code in the global context
-  // so can access everything in the developer console
-  const result = eval.call(window, text); // eslint-disable-line no-eval
-
-  console.log(
-    '%c→',
-    'color: darkgrey',
-    isString(result) ? JSON.stringify(result) : result
-  );
-}
-
-export function clearConsole() {
-  console.clear && console.clear();
 }
 
 function urlIsLoaded(libraries, url) {

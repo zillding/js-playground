@@ -1,15 +1,32 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
+import isString from 'lodash/isString';
 import prettier from 'prettier/standalone';
 import babylon from 'prettier/parser-babylon';
 import AceEditor from 'react-ace';
 import { connect } from 'react-redux';
 
 import { persistContent, getPersistContent } from './lib/utils';
-import { evalText, clearConsole, addLibrary } from './actions';
+import { addLibrary } from './actions';
 
 import SearchLibraryModal from './SearchLibraryModal';
+
+function evalText(text) {
+  // eval the js code in the global context
+  // so can access everything in the developer console
+  const result = eval.call(window, text); // eslint-disable-line no-eval
+
+  console.log(
+    '%c→',
+    'color: darkgrey',
+    isString(result) ? JSON.stringify(result) : result
+  );
+}
+
+function clearConsole() {
+  console.clear && console.clear();
+}
 
 let editorInstance = null;
 
