@@ -13,15 +13,19 @@ import { addLibrary } from './actions';
 import SearchLibraryModal from './SearchLibraryModal';
 
 function evalText(text) {
-  // eval the js code in the global context
-  // so can access everything in the developer console
-  const result = eval.call(window, text); // eslint-disable-line no-eval
+  try {
+    // eval the js code in the global context
+    // so can access everything in the developer console
+    const result = eval.call(window, text); // eslint-disable-line no-eval
 
-  console.log(
-    '%c→',
-    'color: darkgrey',
-    isString(result) ? JSON.stringify(result) : result
-  );
+    console.log(
+      '%c→',
+      'color: darkgrey',
+      isString(result) ? JSON.stringify(result) : result
+    );
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 function clearConsole() {
