@@ -6,9 +6,9 @@ import prettier from 'prettier/standalone';
 import babylon from 'prettier/parser-babylon';
 import AceEditor from 'react-ace';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 
-import { persistContent, getPersistContent } from './lib/utils';
-import { addLibrary } from './actions';
+import { persistContent, getPersistContent, loadJs } from './lib/utils';
 
 import SearchLibraryModal from './SearchLibraryModal';
 
@@ -32,6 +32,20 @@ function clearConsole() {
   console.clear && console.clear();
 }
 
+function getNextValue(value, libraries) {
+  const regex = /^\/\/@@\s+(\S*)/;
+  const libs = libraries
+    .map(({ url }) => `//@@ ${url}`)
+    .join('\n')
+    .trim();
+  const content = value
+    .split('\n')
+    .filter(line => !regex.test(line))
+    .join('\n')
+    .trim();
+  return `${libs}\n\n${content}`;
+}
+
 let editorInstance = null;
 
 class Editor extends Component {
@@ -40,7 +54,8 @@ class Editor extends Component {
 
     this.state = {
       value: getPersistContent(),
-      modalIsOpen: false
+      modalIsOpen: false,
+      libraries: []
     };
   }
 
@@ -94,21 +109,47 @@ class Editor extends Component {
     this.persist(value);
   };
 
+  onAddLib = url => {
+    const { libraries } = this.state;
+
+    if (libraries.some(o => o.url === url)) {
+      toast.warn(`The library is already loaded: ${url}`);
+      return;
+    }
+
+    this.loadLib(url).then(() => {
+      const { value, libraries } = this.state;
+      this.onChange(getNextValue(value, libraries));
+    });
+  };
+
+  loadLib(url) {
+    return loadJs(url)
+      .then(() => {
+        toast.success(`JS loaded: ${url}`);
+        this.setState(({ libraries }) => ({
+          libraries: [...libraries, { url }]
+        }));
+      })
+      .catch(() => {
+        toast.error(`JS load failed: ${url}`);
+      });
+  }
+
   loadLibs() {
-    const { onLoadLibraryRequest } = this.props;
     const { value } = this.state;
 
     const regex = /^\/\/@@\s+(\S*)/;
     value.split('\n').forEach(line => {
       const [, url] = regex.exec(line) || [];
       if (url) {
-        onLoadLibraryRequest(url);
+        this.loadLib(url);
       }
     });
   }
 
   render() {
-    const { vimModeOn, onLoadLibraryRequest } = this.props;
+    const { vimModeOn } = this.props;
     const { value, modalIsOpen } = this.state;
 
     return (
@@ -156,7 +197,7 @@ class Editor extends Component {
           onRequestClose={() => {
             this.setState({ modalIsOpen: false });
           }}
-          onAdd={onLoadLibraryRequest}
+          onAdd={this.onAddLib}
         />
       </Fragment>
     );
@@ -164,22 +205,14 @@ class Editor extends Component {
 }
 
 Editor.propTypes = {
-  vimModeOn: PropTypes.bool.isRequired,
-  onLoadLibraryRequest: PropTypes.func.isRequired
+  vimModeOn: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
   vimModeOn: state.editorVimModeEnabled
 });
 
-const mapDispatchToProps = dispatch => ({
-  onLoadLibraryRequest: url => dispatch(addLibrary({ url }))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Editor);
+export default connect(mapStateToProps)(Editor);
 
 export function focusOnEditor() {
   if (editorInstance) editorInstance.focus();
