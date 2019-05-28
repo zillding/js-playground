@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import MenuBar from './MenuBar';
 import LibraryListPanel from './LibraryListPanel';
-import EditorArea from './EditorArea';
+import Editor from './Editor';
 
 toast.configure({
   position: toast.POSITION.BOTTOM_RIGHT
@@ -35,7 +35,7 @@ const App = () => (
       <LibraryListPanel />
     </div>
     <div style={editorContainerStyle}>
-      <EditorArea />
+      <Editor />
     </div>
   </div>
 );

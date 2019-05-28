@@ -1,8 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import debounce from 'lodash/debounce';
 import prettier from 'prettier/standalone';
 import babylon from 'prettier/parser-babylon';
 import AceEditor from 'react-ace';
+import { connect } from 'react-redux';
+
+import { persistContent, getPersistContent } from './lib/utils';
+import { evalText, clearConsole, addLibrary } from './actions';
 
 import SearchLibraryModal from './SearchLibraryModal';
 
@@ -13,20 +18,24 @@ class Editor extends Component {
     super(props);
 
     this.state = {
-      value: props.initText,
+      value: getPersistContent(),
       modalIsOpen: false
     };
   }
 
+  persist = debounce(persistContent, 500);
+
   onChange = value => {
     this.setState({ value });
-    this.props.onChange(value);
+    this.persist(value);
   };
 
   loadLibs() {
-    const { initText, onLoadLibraryRequest } = this.props;
+    const { onLoadLibraryRequest } = this.props;
+    const { value } = this.state;
+
     const regex = /^\/\/@@\s+(\S*)/;
-    initText.split('\n').forEach(line => {
+    value.split('\n').forEach(line => {
       const [, url] = regex.exec(line) || [];
       if (url) {
         onLoadLibraryRequest(url);
@@ -35,12 +44,7 @@ class Editor extends Component {
   }
 
   render() {
-    const {
-      vimModeOn,
-      onRunRequest,
-      onClearRequest,
-      onLoadLibraryRequest
-    } = this.props;
+    const { vimModeOn, onLoadLibraryRequest } = this.props;
     const { value, modalIsOpen } = this.state;
 
     return (
@@ -67,7 +71,7 @@ class Editor extends Component {
                 win: 'Ctrl-Enter',
                 mac: 'Command-Enter'
               },
-              exec: editor => onRunRequest(editor.getValue())
+              exec: () => evalText(value)
             },
             {
               name: 'clearCommand',
@@ -75,7 +79,7 @@ class Editor extends Component {
                 win: 'Ctrl-k',
                 mac: 'Command-k'
               },
-              exec: () => onClearRequest()
+              exec: clearConsole
             },
             {
               name: 'searchLibCommand',
@@ -93,13 +97,14 @@ class Editor extends Component {
                 win: 'Ctrl-s',
                 mac: 'Command-s'
               },
-              exec: editor =>
-                editor.setValue(
-                  prettier.format(editor.getValue(), {
+              exec: () => {
+                this.setState({
+                  value: prettier.format(value, {
                     parser: 'babel',
                     plugins: [babylon]
                   })
-                )
+                });
+              }
             }
           ]}
           value={value}
@@ -109,6 +114,20 @@ class Editor extends Component {
           }}
           onChange={this.onChange}
         />
+
+        <button
+          style={{
+            position: 'absolute',
+            top: 10,
+            right: 10,
+            zIndex: 9999
+          }}
+          onClick={() => {
+            evalText(value);
+          }}
+        >
+          run
+        </button>
 
         <SearchLibraryModal
           isOpen={modalIsOpen}
@@ -123,16 +142,23 @@ class Editor extends Component {
 }
 
 Editor.propTypes = {
-  initText: PropTypes.string,
   vimModeOn: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onRunRequest: PropTypes.func.isRequired,
-  onClearRequest: PropTypes.func.isRequired,
   onLoadLibraryRequest: PropTypes.func.isRequired
 };
+
+const mapStateToProps = state => ({
+  vimModeOn: state.editorVimModeEnabled
+});
+
+const mapDispatchToProps = dispatch => ({
+  onLoadLibraryRequest: url => dispatch(addLibrary({ url }))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Editor);
 
 export function focusOnEditor() {
   if (editorInstance) editorInstance.focus();
 }
-
-export default Editor;

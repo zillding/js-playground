@@ -2,13 +2,8 @@ import find from 'lodash/find';
 import isString from 'lodash/isString';
 import { toast } from 'react-toastify';
 
-import { loadJs, persistContent, setPersistVimMode } from './lib/utils';
+import { loadJs, setPersistVimMode } from './lib/utils';
 import { focusOnEditor } from './Editor';
-
-export function setEditorContent(text) {
-  persistContent(text);
-  return { type: 'SET_EDITOR_CONTENT', text };
-}
 
 export function toggleEditorVimMode() {
   focusOnEditor();

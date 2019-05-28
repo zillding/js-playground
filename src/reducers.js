@@ -1,7 +1,6 @@
 /**
 state object:
 {
-  editorContent: string,
   editorVimModeEnabled: boolean,
   libraryListIsOpen: boolean,
   libraries: [{
@@ -14,15 +13,6 @@ state object:
 
 import { combineReducers } from 'redux';
 import { getPersistVimMode } from './lib/utils';
-
-function editorContent(state = '', action) {
-  switch (action.type) {
-    case 'SET_EDITOR_CONTENT':
-      return action.text;
-    default:
-      return state;
-  }
-}
 
 function editorVimModeEnabled(state = getPersistVimMode(), action) {
   switch (action.type) {
@@ -75,7 +65,6 @@ function libraries(state = [], action) {
 }
 
 const app = combineReducers({
-  editorContent,
   editorVimModeEnabled,
   libraryListIsOpen,
   libraries
