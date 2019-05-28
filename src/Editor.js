@@ -41,6 +41,49 @@ class Editor extends Component {
   }
 
   persist = debounce(persistContent, 500);
+  commands = [
+    {
+      name: 'runCommand',
+      bindKey: {
+        win: 'Ctrl-Enter',
+        mac: 'Command-Enter'
+      },
+      exec: editor => evalText(editor.getValue())
+    },
+    {
+      name: 'clearCommand',
+      bindKey: {
+        win: 'Ctrl-k',
+        mac: 'Command-k'
+      },
+      exec: clearConsole
+    },
+    {
+      name: 'searchLibCommand',
+      bindKey: {
+        win: 'Ctrl-o',
+        mac: 'Command-o'
+      },
+      exec: () => {
+        this.setState({ modalIsOpen: true });
+      }
+    },
+    {
+      name: 'formatCommand',
+      bindKey: {
+        win: 'Ctrl-s',
+        mac: 'Command-s'
+      },
+      exec: editor => {
+        this.setState({
+          value: prettier.format(editor.getValue(), {
+            parser: 'babel',
+            plugins: [babylon]
+          })
+        });
+      }
+    }
+  ];
 
   onChange = value => {
     this.setState({ value });
@@ -81,49 +124,7 @@ class Editor extends Component {
           setOptions={{
             tabSize: 2
           }}
-          commands={[
-            {
-              name: 'runCommand',
-              bindKey: {
-                win: 'Ctrl-Enter',
-                mac: 'Command-Enter'
-              },
-              exec: () => evalText(value)
-            },
-            {
-              name: 'clearCommand',
-              bindKey: {
-                win: 'Ctrl-k',
-                mac: 'Command-k'
-              },
-              exec: clearConsole
-            },
-            {
-              name: 'searchLibCommand',
-              bindKey: {
-                win: 'Ctrl-o',
-                mac: 'Command-o'
-              },
-              exec: () => {
-                this.setState({ modalIsOpen: true });
-              }
-            },
-            {
-              name: 'formatCommand',
-              bindKey: {
-                win: 'Ctrl-s',
-                mac: 'Command-s'
-              },
-              exec: () => {
-                this.setState({
-                  value: prettier.format(value, {
-                    parser: 'babel',
-                    plugins: [babylon]
-                  })
-                });
-              }
-            }
-          ]}
+          commands={this.commands}
           value={value}
           onLoad={o => {
             editorInstance = o;
