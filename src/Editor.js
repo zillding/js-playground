@@ -5,7 +5,6 @@ import isString from 'lodash/isString';
 import prettier from 'prettier/standalone';
 import babylon from 'prettier/parser-babylon';
 import AceEditor from 'react-ace';
-import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { persistContent, getPersistContent, loadJs } from './lib/utils';
@@ -208,11 +207,7 @@ Editor.propTypes = {
   vimModeOn: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = state => ({
-  vimModeOn: state.editorVimModeEnabled
-});
-
-export default connect(mapStateToProps)(Editor);
+export default Editor;
 
 export function focusOnEditor() {
   if (editorInstance) editorInstance.focus();

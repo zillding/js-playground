@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { getPersistVimMode, setPersistVimMode } from './lib/utils';
 import MenuBar from './MenuBar';
-import Editor from './Editor';
+import Editor, { focusOnEditor } from './Editor';
 
 toast.configure({
   position: toast.POSITION.BOTTOM_RIGHT
@@ -25,15 +26,27 @@ const editorContainerStyle = {
   position: 'relative'
 };
 
-const App = () => (
-  <div style={containerStyle}>
-    <div style={itemStyle}>
-      <MenuBar />
+function App() {
+  const [isVimEnabled, setIsVimEnabled] = useState(getPersistVimMode());
+
+  return (
+    <div style={containerStyle}>
+      <div style={itemStyle}>
+        <MenuBar
+          editorVimModeEnabled={isVimEnabled}
+          onToggleVimMode={() => {
+            const value = !isVimEnabled;
+            setIsVimEnabled(value);
+            setPersistVimMode(value);
+            focusOnEditor();
+          }}
+        />
+      </div>
+      <div style={editorContainerStyle}>
+        <Editor vimModeOn={isVimEnabled} />
+      </div>
     </div>
-    <div style={editorContainerStyle}>
-      <Editor />
-    </div>
-  </div>
-);
+  );
+}
 
 export default App;

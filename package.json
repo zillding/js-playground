@@ -24,11 +24,8 @@
     "react-ace": "^7.0.0",
     "react-dom": "^16.8.6",
     "react-modal": "^3.8.1",
-    "react-redux": "^7.0.3",
     "react-scripts": "^3.0.1",
     "react-toastify": "^5.1.1",
-    "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0",
     "valid-url": "^1.0.9"
   },
   "devDependencies": {

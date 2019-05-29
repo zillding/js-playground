@@ -1,7 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-
-import { toggleEditorVimMode } from './actions';
 
 const Seperator = () => <span style={{ margin: '0 4px' }}>|</span>;
 
@@ -30,15 +27,4 @@ function MenuBar({ editorVimModeEnabled, onToggleVimMode }) {
   );
 }
 
-const mapStateToProps = state => ({
-  editorVimModeEnabled: state.editorVimModeEnabled
-});
-
-const mapDispatchToProps = dispatch => ({
-  onToggleVimMode: () => dispatch(toggleEditorVimMode())
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MenuBar);
+export default MenuBar;
