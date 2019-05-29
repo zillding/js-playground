@@ -1,18 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import find from 'lodash/find';
 
-import { toggleLibraryList, toggleEditorVimMode } from './actions';
+import { toggleEditorVimMode } from './actions';
 
 const Seperator = () => <span style={{ margin: '0 4px' }}>|</span>;
 
-function MenuBar({
-  libraryListIsOpen,
-  editorVimModeEnabled,
-  libraries,
-  onToggleLibraryList,
-  onToggleVimMode
-}) {
+function MenuBar({ editorVimModeEnabled, onToggleVimMode }) {
   return (
     <div
       style={{
@@ -33,30 +26,15 @@ function MenuBar({
         />
         {editorVimModeEnabled ? 'Vim On' : 'Vim Off'}
       </label>
-      {libraries.length > 0 && (
-        <div style={{ marginLeft: 'auto' }}>
-          {find(libraries, { status: 'loading' }) ? (
-            <i className="fa fa-spinner fa-pulse" />
-          ) : (
-            <i className="fa fa-check" />
-          )}
-          <button style={{ marginLeft: 5 }} onClick={onToggleLibraryList}>
-            {libraryListIsOpen ? 'Hide Libraries' : 'Show Libraries'}
-          </button>
-        </div>
-      )}
     </div>
   );
 }
 
 const mapStateToProps = state => ({
-  libraryListIsOpen: state.libraryListIsOpen,
-  editorVimModeEnabled: state.editorVimModeEnabled,
-  libraries: state.libraries
+  editorVimModeEnabled: state.editorVimModeEnabled
 });
 
 const mapDispatchToProps = dispatch => ({
-  onToggleLibraryList: () => dispatch(toggleLibraryList()),
   onToggleVimMode: () => dispatch(toggleEditorVimMode())
 });
 

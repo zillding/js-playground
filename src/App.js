@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import MenuBar from './MenuBar';
-import LibraryListPanel from './LibraryListPanel';
 import Editor from './Editor';
 
 toast.configure({
@@ -30,9 +29,6 @@ const App = () => (
   <div style={containerStyle}>
     <div style={itemStyle}>
       <MenuBar />
-    </div>
-    <div style={itemStyle}>
-      <LibraryListPanel />
     </div>
     <div style={editorContainerStyle}>
       <Editor />
