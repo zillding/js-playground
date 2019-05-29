@@ -59,7 +59,7 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
                     onAdd(latest);
                   }}
                 >
-                  {name}-{latest}
+                  <strong>{name}</strong> - {latest}
                 </button>
               </li>
             ))}
