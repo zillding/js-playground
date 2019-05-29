@@ -4,7 +4,7 @@ import KeyBindingsModal from './KeyBindingsModal';
 
 const Seperator = () => <span style={{ margin: '0 4px' }}>|</span>;
 
-function MenuBar({ editorVimModeEnabled, onToggleVimMode }) {
+function MenuBar({ editor, editorVimModeEnabled, onToggleVimMode }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -40,6 +40,7 @@ function MenuBar({ editorVimModeEnabled, onToggleVimMode }) {
         isOpen={isModalOpen}
         onRequestClose={() => {
           setIsModalOpen(false);
+          editor.focus();
         }}
       />
     </div>

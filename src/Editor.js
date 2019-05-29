@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import isString from 'lodash/isString';
 import prettier from 'prettier/standalone';
@@ -54,8 +53,6 @@ function Toast({ title, text }) {
     </div>
   );
 }
-
-let editorInstance = null;
 
 class Editor extends Component {
   constructor(props) {
@@ -158,7 +155,7 @@ class Editor extends Component {
   }
 
   render() {
-    const { vimModeOn } = this.props;
+    const { vimModeOn, onLoad } = this.props;
     const { value, modalIsOpen } = this.state;
 
     return (
@@ -181,7 +178,7 @@ class Editor extends Component {
           commands={this.commands}
           value={value}
           onLoad={o => {
-            editorInstance = o;
+            onLoad(o);
             this.loadLibs();
           }}
           onChange={this.onChange}
@@ -213,12 +210,4 @@ class Editor extends Component {
   }
 }
 
-Editor.propTypes = {
-  vimModeOn: PropTypes.bool.isRequired
-};
-
 export default Editor;
-
-export function focusOnEditor() {
-  if (editorInstance) editorInstance.focus();
-}

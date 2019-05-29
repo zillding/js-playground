@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { getPersistVimMode, setPersistVimMode } from './lib/persist';
 import MenuBar from './MenuBar';
-import Editor, { focusOnEditor } from './Editor';
+import Editor from './Editor';
 
 toast.configure({
   position: toast.POSITION.BOTTOM_RIGHT
@@ -28,22 +28,24 @@ const editorContainerStyle = {
 
 function App() {
   const [isVimEnabled, setIsVimEnabled] = useState(getPersistVimMode());
+  const [editor, setEditor] = useState();
 
   return (
     <div style={containerStyle}>
       <div style={itemStyle}>
         <MenuBar
+          editor={editor}
           editorVimModeEnabled={isVimEnabled}
           onToggleVimMode={() => {
             const value = !isVimEnabled;
             setIsVimEnabled(value);
             setPersistVimMode(value);
-            focusOnEditor();
+            editor.focus();
           }}
         />
       </div>
       <div style={editorContainerStyle}>
-        <Editor vimModeOn={isVimEnabled} />
+        <Editor vimModeOn={isVimEnabled} onLoad={setEditor} />
       </div>
     </div>
   );
