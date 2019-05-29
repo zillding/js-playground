@@ -103,12 +103,12 @@ class Editor extends Component {
         mac: 'Command-s'
       },
       exec: editor => {
-        this.setState({
-          value: prettier.format(editor.getValue(), {
+        this.setState(({ libraries }) => ({
+          value: prettier.format(getNextValue(editor.getValue(), libraries), {
             parser: 'babel',
             plugins: [babylon]
           })
-        });
+        }));
       }
     }
   ];
