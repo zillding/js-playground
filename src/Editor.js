@@ -7,8 +7,8 @@ import babylon from 'prettier/parser-babylon';
 import AceEditor from 'react-ace';
 import { toast } from 'react-toastify';
 
-import { persistContent, getPersistContent, loadJs } from './lib/utils';
-
+import { persistContent, getPersistContent } from './lib/persist';
+import loadJs from './lib/loadJs';
 import SearchLibraryModal from './SearchLibraryModal';
 
 function evalText(text) {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { getPersistVimMode, setPersistVimMode } from './lib/utils';
+import { getPersistVimMode, setPersistVimMode } from './lib/persist';
 import MenuBar from './MenuBar';
 import Editor, { focusOnEditor } from './Editor';
 
