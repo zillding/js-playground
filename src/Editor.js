@@ -45,6 +45,16 @@ function getNextValue(value, libraries) {
   return `${libs}\n\n${content}`;
 }
 
+function Toast({ title, text }) {
+  return (
+    <div style={{ wordBreak: 'break-word' }}>
+      {title && <strong>{title}</strong>}
+      {title && text && <div style={{ height: 4 }} />}
+      {text && <p style={{ margin: 0 }}>{text}</p>}
+    </div>
+  );
+}
+
 let editorInstance = null;
 
 class Editor extends Component {
@@ -112,7 +122,7 @@ class Editor extends Component {
     const { libraries } = this.state;
 
     if (libraries.some(o => o.url === url)) {
-      toast.warn(`The library is already loaded: ${url}`);
+      toast.warn(<Toast title="The library is already loaded." text={url} />);
       return;
     }
 
@@ -125,13 +135,13 @@ class Editor extends Component {
   loadLib(url) {
     return loadJs(url)
       .then(() => {
-        toast.success(`JS loaded: ${url}`);
+        toast.success(<Toast title="JS loaded!" text={url} />);
         this.setState(({ libraries }) => ({
           libraries: [...libraries, { url }]
         }));
       })
       .catch(() => {
-        toast.error(`JS load failed: ${url}`);
+        toast.error(<Toast title="JS load failed." text={url} />);
       });
   }
 
