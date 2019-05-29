@@ -1,11 +1,17 @@
+import validUrl from 'valid-url';
+
 import { getPersist, setPersist } from './persist';
 
 import welcome from './welcome.txt';
 
 export function loadJs(src) {
   return new Promise((resolve, reject) => {
-    var s;
-    s = document.createElement('script');
+    if (!validUrl.isUri(src)) {
+      reject();
+      return;
+    }
+
+    const s = document.createElement('script');
     s.src = src;
     s.onload = resolve;
     s.onerror = reject;
