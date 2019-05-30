@@ -3,6 +3,7 @@
   "description": "A JavaScript code playground",
   "license": "MIT",
   "author": "Zill Ding",
+  "homepage": "https://zillding.github.io/js-playground",
   "repository": {
     "type": "git",
     "url": "https://github.com/zillding/js-playground.git"
@@ -10,6 +11,8 @@
   "version": "0.1.0",
   "scripts": {
     "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject",
     "start": "react-scripts start",
     "test": "react-scripts test"
@@ -18,15 +21,15 @@
     "lodash": "^4.17.11",
     "prettier": "^1.17.1",
     "react": "^16.8.6",
+    "react-ace": "^7.0.0",
     "react-dom": "^16.8.6",
-    "react-notification-system": "^0.2.6",
-    "react-redux": "^7.0.3",
+    "react-modal": "^3.8.1",
     "react-scripts": "^3.0.1",
-    "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0",
+    "react-toastify": "^5.1.1",
     "valid-url": "^1.0.9"
   },
   "devDependencies": {
+    "gh-pages": "^2.0.1",
     "husky": "^2.3.0",
     "lint-staged": "^8.1.7",
     "prettier-package-json": "^2.1.0",
