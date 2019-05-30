@@ -1,0 +1,18 @@
+.key {
+  font-family: Consolas, 'Lucida Console', monospace;
+  font-size: 18px;
+  display: inline-block;
+  border-radius: 3px;
+  padding: 0px 4px;
+  box-shadow: 1px 1px 1px #777;
+  margin: 2px;
+  vertical-align: text-bottom;
+  background: #eee;
+  font-weight: 600;
+  color: #555;
+  font-variant: small-caps;
+}
+
+.td {
+  padding: 2px 12px;
+}

@@ -37,7 +37,14 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
           }}
         >
           <input
-            style={{ width: '100%', boxSizing: 'border-box' }}
+            style={{
+              width: '100%',
+              boxSizing: 'border-box',
+              fontSize: 18,
+              border: '1px #ddd solid',
+              borderRadius: 4,
+              padding: '4px 8px'
+            }}
             autoFocus
             disabled={loading}
             value={value}
@@ -46,23 +53,27 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
             }}
           />
         </form>
-        <div style={{ flex: 1, overflow: 'auto' }}>
-          <ul>
-            {searchResults.map(({ name, latest }) => (
-              <li key={name} style={{ margin: '2px 0' }}>
-                <button
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => {
-                    close();
-                    onAdd(latest);
-                  }}
-                >
-                  <strong>{name}</strong> - {latest}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {loading ? (
+          <span>searching...</span>
+        ) : (
+          <div style={{ flex: 1, overflow: 'auto' }}>
+            <ul>
+              {searchResults.map(({ name, latest }) => (
+                <li key={name} style={{ margin: '2px 0' }}>
+                  <button
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => {
+                      close();
+                      onAdd(latest);
+                    }}
+                  >
+                    <strong>{name}</strong> - {latest}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </Modal>
   );

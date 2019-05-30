@@ -1,6 +1,8 @@
 import React from 'react';
 import Modal from 'react-modal';
 
+import styles from './KeyBindingsModal.module.css';
+
 const keys = [
   {
     mac: ['cmd', 'enter'],
@@ -24,26 +26,7 @@ const keys = [
   }
 ];
 
-const Key = ({ style, ...rest }) => (
-  <kbd
-    style={{
-      fontFamily: 'Consolas, "Lucida Console", monospace',
-      fontSize: 18,
-      display: 'inline-block',
-      borderRadius: '3px',
-      padding: '0px 4px',
-      boxShadow: '1px 1px 1px #777',
-      margin: '2px',
-      verticalAlign: 'text-bottom',
-      background: '#eee',
-      fontWeight: '600',
-      color: '#555',
-      fontVariant: 'small-caps',
-      ...style
-    }}
-    {...rest}
-  />
-);
+const Key = props => <kbd className={styles.key} {...props} />;
 
 function KeyBindingsModal({ isOpen, onRequestClose }) {
   return (
@@ -71,12 +54,12 @@ function KeyBindingsModal({ isOpen, onRequestClose }) {
         <tbody>
           {keys.map(({ mac, pc, text }) => (
             <tr key={text}>
-              <td style={{ padding: '2px 12px' }}>
+              <td className={styles.td}>
                 {mac.map(key => (
                   <Key key={key}>{key}</Key>
                 ))}
               </td>
-              <td style={{ padding: '2px 12px' }}>
+              <td className={styles.td}>
                 {pc.map(key => (
                   <Key key={key}>{key}</Key>
                 ))}
