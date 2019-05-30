@@ -11,6 +11,6 @@ export default `
 // | cmd+s     | ctrl+s     | format code    |
 // | cmd+o     | ctrl+o     | search library |
 
-alert('This is an AWESOME app!')
-console.log('Happy coooooding') // open developer console to view result
+alert('This is an AWESOME app!');
+console.log('Happy coooooding'); // open developer console to view result
 `;
