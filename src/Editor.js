@@ -165,6 +165,7 @@ class Editor extends Component {
           theme="monokai"
           focus
           enableBasicAutocompletion
+          enableLiveAutocompletion
           editorProps={{ $blockScrolling: Infinity }}
           style={{
             position: 'absolute',
