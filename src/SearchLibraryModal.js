@@ -37,7 +37,14 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
           }}
         >
           <input
-            style={{ width: '100%', boxSizing: 'border-box' }}
+            style={{
+              width: '100%',
+              boxSizing: 'border-box',
+              fontSize: 18,
+              border: '1px #ddd solid',
+              borderRadius: 4,
+              padding: '4px 8px'
+            }}
             autoFocus
             disabled={loading}
             value={value}
