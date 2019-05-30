@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 
-Modal.setAppElement('#root');
-
 function searchLib(str) {
   return fetch(`https://api.cdnjs.com/libraries?search=${str.trim()}`)
     .then(response => response.json())
