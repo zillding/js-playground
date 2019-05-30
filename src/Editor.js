@@ -102,6 +102,7 @@ class Editor extends Component {
       exec: editor => {
         this.setState(({ libraries }) => ({
           value: prettier.format(getNextValue(editor.getValue(), libraries), {
+            singleQuote: true,
             parser: 'babel',
             plugins: [babylon]
           })
