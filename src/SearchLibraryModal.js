@@ -55,27 +55,34 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
             search(e.target.value);
           }}
         />
-        {loading ? (
-          <span>searching...</span>
-        ) : (
-          <div style={{ flex: 1, overflow: 'auto' }}>
-            <ul>
-              {searchResults.map(({ name, latest }) => (
-                <li key={name} style={{ margin: '2px 0' }}>
-                  <button
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => {
-                      close();
-                      onAdd(latest);
-                    }}
-                  >
-                    <strong>{name}</strong> - {latest}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
+        {loading && (
+          <span
+            style={{
+              position: 'absolute',
+              top: 50,
+              fontSize: 12
+            }}
+          >
+            searching...
+          </span>
         )}
+        <div style={{ flex: 1, overflow: 'auto' }}>
+          <ul>
+            {searchResults.map(({ name, latest }) => (
+              <li key={name} style={{ margin: '2px 0' }}>
+                <button
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    close();
+                    onAdd(latest);
+                  }}
+                >
+                  <strong>{name}</strong> - {latest}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </Modal>
   );
