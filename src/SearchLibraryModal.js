@@ -1,6 +1,11 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Modal from 'react-modal';
 import debounce from 'lodash/debounce';
+import keycode from 'keycode';
+import { FixedSizeList as List } from 'react-window';
+import AutoSizer from 'react-virtualized-auto-sizer';
+
+import styles from './SearchLibraryModal.module.css';
 
 function searchLib(str) {
   return fetch(`https://api.cdnjs.com/libraries?search=${str.trim()}`)
@@ -11,8 +16,10 @@ function searchLib(str) {
 let currentRequest;
 
 function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
+  const listEl = useRef(null);
   const [loading, setLoading] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
+  const [selectedItemIndex, setSelectedItemIndex] = useState(0);
   const search = useCallback(
     debounce(str => {
       if (!str.trim()) return;
@@ -33,6 +40,10 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
     []
   );
 
+  useEffect(() => {
+    listEl.current && listEl.current.scrollToItem(selectedItemIndex);
+  }, [selectedItemIndex]);
+
   function close() {
     setSearchResults([]);
     onRequestClose();
@@ -40,7 +51,13 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
 
   return (
     <Modal isOpen={isOpen} onRequestClose={close}>
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%'
+        }}
+      >
         <input
           style={{
             width: '100%',
@@ -54,12 +71,41 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
           onChange={e => {
             search(e.target.value);
           }}
+          onKeyDown={e => {
+            if (!searchResults.length) return;
+            switch (e.keyCode) {
+              case keycode('up'):
+                e.preventDefault();
+                setSelectedItemIndex(
+                  selectedItemIndex === 0
+                    ? searchResults.length - 1
+                    : selectedItemIndex - 1
+                );
+                return;
+              case keycode('down'):
+                e.preventDefault();
+                setSelectedItemIndex(
+                  selectedItemIndex === searchResults.length - 1
+                    ? 0
+                    : selectedItemIndex + 1
+                );
+                return;
+              case keycode('enter'):
+                if (searchResults[selectedItemIndex]) {
+                  close();
+                  onAdd(searchResults[selectedItemIndex].latest);
+                }
+                break;
+              default:
+                return;
+            }
+          }}
         />
         {loading && (
           <span
             style={{
               position: 'absolute',
-              top: 50,
+              top: 4,
               fontSize: 12
             }}
           >
@@ -67,21 +113,33 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
           </span>
         )}
         <div style={{ flex: 1, overflow: 'auto' }}>
-          <ul>
-            {searchResults.map(({ name, latest }) => (
-              <li key={name} style={{ margin: '2px 0' }}>
-                <button
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => {
-                    close();
-                    onAdd(latest);
-                  }}
-                >
-                  <strong>{name}</strong> - {latest}
-                </button>
-              </li>
-            ))}
-          </ul>
+          <AutoSizer>
+            {({ height, width }) => (
+              <List
+                ref={listEl}
+                height={height}
+                itemCount={searchResults.length}
+                itemSize={30}
+                width={width}
+              >
+                {({ index, style }) => {
+                  const { name, latest } = searchResults[index];
+                  return (
+                    <div
+                      className={styles.item}
+                      style={{
+                        ...style,
+                        backgroundColor:
+                          selectedItemIndex === index ? '#ddd' : undefined
+                      }}
+                    >
+                      <strong>{name}</strong> - <a href={latest}>{latest}</a>
+                    </div>
+                  );
+                }}
+              </List>
+            )}
+          </AutoSizer>
         </div>
       </div>
     </Modal>
