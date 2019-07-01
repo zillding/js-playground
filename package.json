@@ -34,7 +34,7 @@
   "devDependencies": {
     "gh-pages": "^2.0.1",
     "husky": "^2.3.0",
-    "lint-staged": "^8.1.7",
+    "lint-staged": "^9.0.0",
     "prettier-package-json": "^2.1.0"
   },
   "browserslist": {
