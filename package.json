@@ -15,7 +15,9 @@
     "deploy": "gh-pages -d build",
     "eject": "react-scripts eject",
     "start": "react-scripts start",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "keycode": "^2.2.0",
@@ -29,7 +31,8 @@
     "react-toastify": "^5.5.0",
     "react-virtualized-auto-sizer": "^1.0.2",
     "react-window": "^1.8.5",
-    "valid-url": "^1.0.9"
+    "valid-url": "^1.0.9",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "gh-pages": "^2.2.0",
@@ -74,5 +77,6 @@
   },
   "prettier": {
     "singleQuote": true
-  }
+  },
+  "snyk": true
 }
