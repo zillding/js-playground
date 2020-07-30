@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "keycode": "^2.2.0",
-    "lodash": "^4.17.16",
+    "lodash": "^4.17.19",
     "prettier": "^1.19.1",
     "react": "^16.13.1",
     "react-ace": "^8.1.0",
