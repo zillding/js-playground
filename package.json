@@ -28,7 +28,7 @@
     "react-scripts": "^3.4.3",
     "react-toastify": "^5.5.0",
     "react-virtualized-auto-sizer": "^1.0.2",
-    "react-window": "^1.8.5",
+    "react-window": "^1.8.6",
     "valid-url": "^1.0.9"
   },
   "devDependencies": {
