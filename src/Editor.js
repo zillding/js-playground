@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import debounce from 'lodash/debounce';
 import isString from 'lodash/isString';
 import prettier from 'prettier/standalone';
-import babylon from 'prettier/parser-babylon';
 import AceEditor from 'react-ace';
 import { toast } from 'react-toastify';
 
@@ -104,7 +103,6 @@ class Editor extends Component {
           value: prettier.format(getNextValue(editor.getValue(), libraries), {
             singleQuote: true,
             parser: 'babel',
-            plugins: [babylon],
           }),
         }));
       },
