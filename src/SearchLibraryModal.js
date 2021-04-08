@@ -9,8 +9,8 @@ import styles from './SearchLibraryModal.module.css';
 
 function searchLib(str) {
   return fetch(`https://api.cdnjs.com/libraries?search=${str.trim()}`)
-    .then(response => response.json())
-    .then(data => data.results);
+    .then((response) => response.json())
+    .then((data) => data.results);
 }
 
 let currentRequest;
@@ -21,16 +21,16 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
   const search = useCallback(
-    debounce(str => {
+    debounce((str) => {
       if (!str.trim()) return;
       setLoading(true);
       const request = searchLib(str)
-        .then(data => {
+        .then((data) => {
           if (request !== currentRequest) return;
           setLoading(false);
           setSearchResults(data);
         })
-        .catch(error => {
+        .catch((error) => {
           if (request !== currentRequest) return;
           setLoading(false);
           alert(error.message);
@@ -55,7 +55,7 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          height: '100%'
+          height: '100%',
         }}
       >
         <input
@@ -65,13 +65,13 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
             fontSize: 18,
             border: '1px #ddd solid',
             borderRadius: 4,
-            padding: '4px 8px'
+            padding: '4px 8px',
           }}
           autoFocus
-          onChange={e => {
+          onChange={(e) => {
             search(e.target.value);
           }}
-          onKeyDown={e => {
+          onKeyDown={(e) => {
             if (!searchResults.length) return;
             switch (e.keyCode) {
               case keycode('up'):
@@ -106,7 +106,7 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
             style={{
               position: 'absolute',
               top: 4,
-              fontSize: 12
+              fontSize: 12,
             }}
           >
             searching...
@@ -130,7 +130,7 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
                       style={{
                         ...style,
                         backgroundColor:
-                          selectedItemIndex === index ? '#ddd' : undefined
+                          selectedItemIndex === index ? '#ddd' : undefined,
                       }}
                     >
                       <strong>{name}</strong> - <a href={latest}>{latest}</a>

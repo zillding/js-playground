@@ -13,7 +13,7 @@ function MenuBar({ editor, editorVimModeEnabled, onToggleVimMode }) {
         display: 'flex',
         alignItems: 'center',
         overflow: 'auto',
-        padding: 4
+        padding: 4,
       }}
     >
       <span>JS Playground</span>

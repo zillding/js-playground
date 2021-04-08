@@ -1,6 +1,6 @@
 import validUrl from 'valid-url';
 
-export default function(src) {
+export default function (src) {
   return new Promise((resolve, reject) => {
     if (!validUrl.isUri(src)) {
       reject();
