@@ -1,9 +1,9 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Modal from 'react-modal';
-import debounce from 'lodash/debounce';
 import keycode from 'keycode';
 import { FixedSizeList as List } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
+import { useDebouncedCallback } from 'use-debounce';
 
 import styles from './SearchLibraryModal.module.css';
 
@@ -20,25 +20,22 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
   const [loading, setLoading] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
-  const search = useCallback(
-    debounce((str) => {
-      if (!str.trim()) return;
-      setLoading(true);
-      const request = searchLib(str)
-        .then((data) => {
-          if (request !== currentRequest) return;
-          setLoading(false);
-          setSearchResults(data);
-        })
-        .catch((error) => {
-          if (request !== currentRequest) return;
-          setLoading(false);
-          alert(error.message);
-        });
-      currentRequest = request;
-    }, 500),
-    []
-  );
+  const search = useDebouncedCallback((str) => {
+    if (!str.trim()) return;
+    setLoading(true);
+    const request = searchLib(str)
+      .then((data) => {
+        if (request !== currentRequest) return;
+        setLoading(false);
+        setSearchResults(data);
+      })
+      .catch((error) => {
+        if (request !== currentRequest) return;
+        setLoading(false);
+        alert(error.message);
+      });
+    currentRequest = request;
+  }, 500);
 
   useEffect(() => {
     listEl.current && listEl.current.scrollToItem(selectedItemIndex);
