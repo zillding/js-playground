@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import debounce from 'lodash/debounce';
 import isString from 'lodash/isString';
 import prettier from 'prettier/standalone';
-import babylon from 'prettier/parser-babylon';
 import AceEditor from 'react-ace';
 import { toast } from 'react-toastify';
 
@@ -38,7 +37,7 @@ function getNextValue(value, libraries) {
     .trim();
   const content = value
     .split('\n')
-    .filter(line => !regex.test(line))
+    .filter((line) => !regex.test(line))
     .join('\n')
     .trim();
   return `${libs}\n\n${content}`;
@@ -61,7 +60,7 @@ class Editor extends Component {
     this.state = {
       value: getPersistContent(),
       modalIsOpen: false,
-      libraries: []
+      libraries: [],
     };
   }
 
@@ -71,55 +70,54 @@ class Editor extends Component {
       name: 'runCommand',
       bindKey: {
         win: 'Ctrl-Enter',
-        mac: 'Command-Enter'
+        mac: 'Command-Enter',
       },
-      exec: editor => evalText(editor.getValue())
+      exec: (editor) => evalText(editor.getValue()),
     },
     {
       name: 'clearCommand',
       bindKey: {
         win: 'Ctrl-k',
-        mac: 'Command-k'
+        mac: 'Command-k',
       },
-      exec: clearConsole
+      exec: clearConsole,
     },
     {
       name: 'searchLibCommand',
       bindKey: {
         win: 'Ctrl-o',
-        mac: 'Command-o'
+        mac: 'Command-o',
       },
       exec: () => {
         this.setState({ modalIsOpen: true });
-      }
+      },
     },
     {
       name: 'formatCommand',
       bindKey: {
         win: 'Ctrl-s',
-        mac: 'Command-s'
+        mac: 'Command-s',
       },
-      exec: editor => {
+      exec: (editor) => {
         this.setState(({ libraries }) => ({
           value: prettier.format(getNextValue(editor.getValue(), libraries), {
             singleQuote: true,
             parser: 'babel',
-            plugins: [babylon]
-          })
+          }),
         }));
-      }
-    }
+      },
+    },
   ];
 
-  onChange = value => {
+  onChange = (value) => {
     this.setState({ value });
     this.persist(value);
   };
 
-  onAddLib = url => {
+  onAddLib = (url) => {
     const { libraries } = this.state;
 
-    if (libraries.some(o => o.url === url)) {
+    if (libraries.some((o) => o.url === url)) {
       toast.warn(<Toast title="The library is already loaded." text={url} />);
       return;
     }
@@ -135,7 +133,7 @@ class Editor extends Component {
       .then(() => {
         toast.success(<Toast title="JS loaded!" text={url} />);
         this.setState(({ libraries }) => ({
-          libraries: [...libraries, { url }]
+          libraries: [...libraries, { url }],
         }));
       })
       .catch(() => {
@@ -147,7 +145,7 @@ class Editor extends Component {
     const { value } = this.state;
 
     const regex = /^\/\/@@\s+(\S*)/;
-    value.split('\n').forEach(line => {
+    value.split('\n').forEach((line) => {
       const [, url] = regex.exec(line) || [];
       if (url) {
         this.loadLib(url);
@@ -171,15 +169,15 @@ class Editor extends Component {
           style={{
             position: 'absolute',
             height: '100%',
-            width: '100%'
+            width: '100%',
           }}
           keyboardHandler={vimModeOn ? 'vim' : undefined}
           setOptions={{
-            tabSize: 2
+            tabSize: 2,
           }}
           commands={this.commands}
           value={value}
-          onLoad={o => {
+          onLoad={(o) => {
             onLoad(o);
             this.loadLibs();
           }}
@@ -191,7 +189,7 @@ class Editor extends Component {
             position: 'absolute',
             top: 10,
             right: 10,
-            zIndex: 9999
+            zIndex: 9999,
           }}
           onClick={() => {
             evalText(value);

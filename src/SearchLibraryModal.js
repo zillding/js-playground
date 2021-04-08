@@ -1,16 +1,16 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Modal from 'react-modal';
-import debounce from 'lodash/debounce';
 import keycode from 'keycode';
 import { FixedSizeList as List } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
+import { useDebouncedCallback } from 'use-debounce';
 
 import styles from './SearchLibraryModal.module.css';
 
 function searchLib(str) {
   return fetch(`https://api.cdnjs.com/libraries?search=${str.trim()}`)
-    .then(response => response.json())
-    .then(data => data.results);
+    .then((response) => response.json())
+    .then((data) => data.results);
 }
 
 let currentRequest;
@@ -20,25 +20,22 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
   const [loading, setLoading] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
-  const search = useCallback(
-    debounce(str => {
-      if (!str.trim()) return;
-      setLoading(true);
-      const request = searchLib(str)
-        .then(data => {
-          if (request !== currentRequest) return;
-          setLoading(false);
-          setSearchResults(data);
-        })
-        .catch(error => {
-          if (request !== currentRequest) return;
-          setLoading(false);
-          alert(error.message);
-        });
-      currentRequest = request;
-    }, 500),
-    []
-  );
+  const search = useDebouncedCallback((str) => {
+    if (!str.trim()) return;
+    setLoading(true);
+    const request = searchLib(str)
+      .then((data) => {
+        if (request !== currentRequest) return;
+        setLoading(false);
+        setSearchResults(data);
+      })
+      .catch((error) => {
+        if (request !== currentRequest) return;
+        setLoading(false);
+        alert(error.message);
+      });
+    currentRequest = request;
+  }, 500);
 
   useEffect(() => {
     listEl.current && listEl.current.scrollToItem(selectedItemIndex);
@@ -55,7 +52,7 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          height: '100%'
+          height: '100%',
         }}
       >
         <input
@@ -65,13 +62,13 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
             fontSize: 18,
             border: '1px #ddd solid',
             borderRadius: 4,
-            padding: '4px 8px'
+            padding: '4px 8px',
           }}
           autoFocus
-          onChange={e => {
+          onChange={(e) => {
             search(e.target.value);
           }}
-          onKeyDown={e => {
+          onKeyDown={(e) => {
             if (!searchResults.length) return;
             switch (e.keyCode) {
               case keycode('up'):
@@ -106,7 +103,7 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
             style={{
               position: 'absolute',
               top: 4,
-              fontSize: 12
+              fontSize: 12,
             }}
           >
             searching...
@@ -130,7 +127,7 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
                       style={{
                         ...style,
                         backgroundColor:
-                          selectedItemIndex === index ? '#ddd' : undefined
+                          selectedItemIndex === index ? '#ddd' : undefined,
                       }}
                     >
                       <strong>{name}</strong> - <a href={latest}>{latest}</a>

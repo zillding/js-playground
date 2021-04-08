@@ -7,26 +7,26 @@ const keys = [
   {
     mac: ['cmd', 'enter'],
     pc: ['ctrl', 'enter'],
-    text: 'run code'
+    text: 'run code',
   },
   {
     mac: ['cmd', 'k'],
     pc: ['ctrl', 'k'],
-    text: 'clear console'
+    text: 'clear console',
   },
   {
     mac: ['cmd', 's'],
     pc: ['ctrl', 's'],
-    text: 'format code'
+    text: 'format code',
   },
   {
     mac: ['cmd', 'o'],
     pc: ['ctrl', 'o'],
-    text: 'search library'
-  }
+    text: 'search library',
+  },
 ];
 
-const Key = props => <kbd className={styles.key} {...props} />;
+const Key = (props) => <kbd className={styles.key} {...props} />;
 
 function KeyBindingsModal({ isOpen, onRequestClose }) {
   return (
@@ -35,9 +35,9 @@ function KeyBindingsModal({ isOpen, onRequestClose }) {
         overlay: {
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
         },
-        content: { position: 'static' }
+        content: { position: 'static' },
       }}
       isOpen={isOpen}
       onRequestClose={onRequestClose}
@@ -55,12 +55,12 @@ function KeyBindingsModal({ isOpen, onRequestClose }) {
           {keys.map(({ mac, pc, text }) => (
             <tr key={text}>
               <td className={styles.td}>
-                {mac.map(key => (
+                {mac.map((key) => (
                   <Key key={key}>{key}</Key>
                 ))}
               </td>
               <td className={styles.td}>
-                {pc.map(key => (
+                {pc.map((key) => (
                   <Key key={key}>{key}</Key>
                 ))}
               </td>
