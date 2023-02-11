@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
-import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { getPersistVimMode, setPersistVimMode } from './lib/persist';
 import MenuBar from './MenuBar';
 import Editor from './Editor';
-
-toast.configure({
-  position: toast.POSITION.BOTTOM_RIGHT,
-});
 
 const containerStyle = {
   display: 'flex',
@@ -47,6 +43,7 @@ function App() {
       <div style={editorContainerStyle}>
         <Editor vimModeOn={isVimEnabled} onLoad={setEditor} />
       </div>
+      <ToastContainer position='bottom-right' />
     </div>
   );
 }
