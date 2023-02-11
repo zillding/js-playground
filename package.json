@@ -27,7 +27,7 @@
     "react-modal": "^3.14.3",
     "react-scripts": "^5.0.0",
     "react-toastify": "^7.0.4",
-    "react-virtualized-auto-sizer": "^1.0.5",
+    "react-virtualized-auto-sizer": "^1.0.6",
     "react-window": "^1.8.6",
     "use-debounce": "^6.0.1",
     "valid-url": "^1.0.9"
