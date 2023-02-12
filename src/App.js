@@ -43,7 +43,7 @@ function App() {
       <div style={editorContainerStyle}>
         <Editor vimModeOn={isVimEnabled} onLoad={setEditor} />
       </div>
-      <ToastContainer position='bottom-right' />
+      <ToastContainer position="bottom-right" />
     </div>
   );
 }
