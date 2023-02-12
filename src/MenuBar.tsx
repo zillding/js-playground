@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 
+import { IEditor } from './Editor';
 import KeyBindingsModal from './KeyBindingsModal';
 
 const Seperator = () => <span style={{ margin: '0 4px' }}>|</span>;
 
-function MenuBar({ editor, editorVimModeEnabled, onToggleVimMode }) {
+type Props = {
+  editor?: IEditor;
+  editorVimModeEnabled: boolean;
+  onToggleVimMode: React.FormEventHandler;
+};
+
+function MenuBar({ editor, editorVimModeEnabled, onToggleVimMode }: Props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -40,7 +47,7 @@ function MenuBar({ editor, editorVimModeEnabled, onToggleVimMode }) {
         isOpen={isModalOpen}
         onRequestClose={() => {
           setIsModalOpen(false);
-          editor.focus();
+          editor?.focus();
         }}
       />
     </div>
