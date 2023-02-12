@@ -178,6 +178,7 @@ class Editor extends Component {
           keyboardHandler={vimModeOn ? 'vim' : undefined}
           setOptions={{
             tabSize: 2,
+            useWorker: false,
           }}
           commands={this.commands}
           value={value}
