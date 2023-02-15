@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-monokai';
 import 'ace-builds/src-noconflict/ext-language_tools';
+import 'ace-builds/src-noconflict/keybinding-vim';
 
 import { persistContent, getPersistContent } from './lib/persist';
 import loadJs from './lib/loadJs';
