@@ -7,16 +7,22 @@ import { useDebouncedCallback } from 'use-debounce';
 
 import styles from './SearchLibraryModal.module.css';
 
-function searchLib(str) {
+function searchLib(str: string) {
   return fetch(`https://api.cdnjs.com/libraries?search=${str.trim()}`)
     .then((response) => response.json())
     .then((data) => data.results);
 }
 
-let currentRequest;
+let currentRequest: object;
 
-function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
-  const listEl = useRef(null);
+type Props = {
+  isOpen: boolean;
+  onRequestClose: () => void;
+  onAdd: (url: string) => void;
+}
+
+function SearchLibraryModal({ isOpen, onRequestClose, onAdd }: Props) {
+  const listEl = useRef<null | List>(null);
   const [loading, setLoading] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
@@ -38,7 +44,7 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
   }, 500);
 
   useEffect(() => {
-    listEl.current && listEl.current.scrollToItem(selectedItemIndex);
+    listEl.current?.scrollToItem(selectedItemIndex);
   }, [selectedItemIndex]);
 
   function close() {
@@ -90,7 +96,7 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }) {
               case keycode('enter'):
                 if (searchResults[selectedItemIndex]) {
                   close();
-                  onAdd(searchResults[selectedItemIndex].latest);
+                  onAdd(searchResults[selectedItemIndex]['latest']);
                 }
                 break;
               default:

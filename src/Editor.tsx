@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import debounce from 'lodash/debounce';
 import isString from 'lodash/isString';
 import prettier from 'prettier/standalone';
@@ -13,7 +13,7 @@ import { persistContent, getPersistContent } from './lib/persist';
 import loadJs from './lib/loadJs';
 import SearchLibraryModal from './SearchLibraryModal';
 
-function evalText(text) {
+function evalText(text: string) {
   try {
     // eval the js code in the global context
     // so can access everything in the developer console
@@ -33,7 +33,11 @@ function clearConsole() {
   console.clear && console.clear();
 }
 
-function getNextValue(value, libraries) {
+type Library = { 
+  url: string;
+};
+
+function getNextValue(value: string, libraries: Library[]) {
   const regex = /^\/\/@@\s+(\S*)/;
   const libs = libraries
     .map(({ url }) => `//@@ ${url}`)
@@ -41,13 +45,18 @@ function getNextValue(value, libraries) {
     .trim();
   const content = value
     .split('\n')
-    .filter((line) => !regex.test(line))
+    .filter((line: string) => !regex.test(line))
     .join('\n')
     .trim();
   return `${libs}\n\n${content}`;
 }
 
-function Toast({ title, text }) {
+type ToastProps = {
+  title: string;
+  text: string;
+};
+
+function Toast({ title, text }: ToastProps) {
   return (
     <div style={{ wordBreak: 'break-word' }}>
       {title && <strong>{title}</strong>}
@@ -57,16 +66,28 @@ function Toast({ title, text }) {
   );
 }
 
-class Editor extends Component {
-  constructor(props) {
-    super(props);
+export interface IEditor {
+  focus: () => void;
+  getValue: () => string;
+}
 
-    this.state = {
-      value: getPersistContent(),
-      modalIsOpen: false,
-      libraries: [],
-    };
-  }
+type EditorProps = {
+  vimModeOn: boolean;
+  onLoad: (o: IEditor) => void;
+};
+
+type EditorState = {
+  value: string;
+  modalIsOpen: boolean;
+  libraries: Library[];
+};
+
+class Editor extends Component<EditorProps, EditorState> {
+  state: EditorState = {
+    value: getPersistContent(),
+    modalIsOpen: false,
+    libraries: [],
+  };
 
   persist = debounce(persistContent, 500);
   commands = [
@@ -76,7 +97,7 @@ class Editor extends Component {
         win: 'Ctrl-Enter',
         mac: 'Command-Enter',
       },
-      exec: (editor) => evalText(editor.getValue()),
+      exec: (editor: IEditor) => evalText(editor.getValue()),
     },
     {
       name: 'clearCommand',
@@ -102,7 +123,7 @@ class Editor extends Component {
         win: 'Ctrl-s',
         mac: 'Command-s',
       },
-      exec: (editor) => {
+      exec: (editor: IEditor) => {
         this.setState(({ libraries }) => ({
           value: prettier.format(getNextValue(editor.getValue(), libraries), {
             singleQuote: true,
@@ -113,12 +134,12 @@ class Editor extends Component {
     },
   ];
 
-  onChange = (value) => {
+  onChange = (value: string) => {
     this.setState({ value });
     this.persist(value);
   };
 
-  onAddLib = (url) => {
+  onAddLib = (url: string) => {
     const { libraries } = this.state;
 
     if (libraries.some((o) => o.url === url)) {
@@ -132,7 +153,7 @@ class Editor extends Component {
     });
   };
 
-  loadLib(url) {
+  loadLib(url: string) {
     return loadJs(url)
       .then(() => {
         toast.success(<Toast title="JS loaded!" text={url} />);
@@ -162,7 +183,7 @@ class Editor extends Component {
     const { value, modalIsOpen } = this.state;
 
     return (
-      <Fragment>
+      <>
         <AceEditor
           mode="javascript"
           theme="monokai"
@@ -210,7 +231,7 @@ class Editor extends Component {
           }}
           onAdd={this.onAddLib}
         />
-      </Fragment>
+      </>
     );
   }
 }

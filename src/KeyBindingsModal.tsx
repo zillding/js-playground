@@ -26,9 +26,19 @@ const keys = [
   },
 ];
 
-const Key = (props) => <kbd className={styles.key} {...props} />;
+type KeyProps = {
+  key: string;
+  children: React.ReactNode;
+};
 
-function KeyBindingsModal({ isOpen, onRequestClose }) {
+const Key = (props: KeyProps) => <kbd className={styles.key} {...props} />;
+
+type ModalProps = {
+  isOpen: boolean;
+  onRequestClose: () => void;
+};
+
+function KeyBindingsModal({ isOpen, onRequestClose }: ModalProps) {
   return (
     <Modal
       style={{
