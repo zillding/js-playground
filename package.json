@@ -33,6 +33,7 @@
     "valid-url": "^1.0.9"
   },
   "devDependencies": {
+    "@tsconfig/create-react-app": "^1.0.3",
     "@types/jest": "^29.4.0",
     "@types/lodash": "^4.14.191",
     "@types/node": "^18.13.0",
