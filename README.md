@@ -9,7 +9,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Usage
 
 Just type in any js code in the editor pane and open the developer console to see
-the result. (works best with chrome)
+the result.
 
 All js code is run with `eval`. Hence the supported js code syntax depends on the
 browser that the code is currently running in.
