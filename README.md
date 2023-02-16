@@ -4,8 +4,6 @@
 
 A JavaScript code playground
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## Usage
 
 Just type in any js code in the editor pane and open the developer console to see
