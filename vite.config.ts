@@ -9,4 +9,5 @@ export default defineConfig({
   server: {
     open: true,
   },
+  base: '/js-playground/',
 });
