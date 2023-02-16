@@ -18,7 +18,7 @@ function evalText(text: string) {
   try {
     // eval the js code in the global context
     // so can access everything in the developer console
-    const result = eval.call(window, text); // eslint-disable-line no-eval
+    const result = eval.call(window, text);
 
     console.log(
       '%c→',
