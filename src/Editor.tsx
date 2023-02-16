@@ -34,7 +34,7 @@ function clearConsole() {
   console.clear && console.clear();
 }
 
-type Library = { 
+type Library = {
   url: string;
 };
 

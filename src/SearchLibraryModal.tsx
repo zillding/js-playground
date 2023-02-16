@@ -19,7 +19,7 @@ type Props = {
   isOpen: boolean;
   onRequestClose: () => void;
   onAdd: (url: string) => void;
-}
+};
 
 function SearchLibraryModal({ isOpen, onRequestClose, onAdd }: Props) {
   const listEl = useRef<null | List>(null);
