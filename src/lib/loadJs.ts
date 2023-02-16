@@ -1,6 +1,6 @@
 import validUrl from 'valid-url';
 
-export default function loadJs(src) {
+export default function loadJs(src: string) {
   return new Promise((resolve, reject) => {
     if (!validUrl.isUri(src)) {
       reject();

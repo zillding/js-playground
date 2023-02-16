@@ -5,21 +5,21 @@ const PERSIST_KEY_PREFIX = 'js-playground-by-zill';
 const storage =
   import.meta.env.NODE_ENV === 'production' ? localStorage : sessionStorage;
 
-function getPersist(key) {
+function getPersist(key: string) {
   try {
     const item = storage.getItem(`${PERSIST_KEY_PREFIX}-${key}`);
-    return JSON.parse(item);
+    return JSON.parse(item as string);
   } catch (err) {
     return null;
   }
 }
 
-function setPersist(key, value) {
+function setPersist(key: string, value: string | boolean) {
   storage.setItem(`${PERSIST_KEY_PREFIX}-${key}`, JSON.stringify(value));
 }
 
 const CONTENT_KEY = 'content';
-export function persistContent(text) {
+export function persistContent(text: string) {
   setPersist(CONTENT_KEY, text.trim());
 }
 
@@ -29,7 +29,7 @@ export function getPersistContent() {
 }
 
 const VIM_MODE_KEY = 'vim-mode-enabled';
-export function setPersistVimMode(mode) {
+export function setPersistVimMode(mode: boolean) {
   setPersist(VIM_MODE_KEY, mode);
 }
 
