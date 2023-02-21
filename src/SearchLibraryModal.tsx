@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Modal from 'react-modal';
-import keycode from 'keycode';
 import { FixedSizeList as List } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { useDebouncedCallback } from 'use-debounce';
@@ -77,8 +76,8 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }: Props) {
           onBlur={onRequestClose}
           onKeyDown={(e) => {
             if (!searchResults.length) return;
-            switch (e.keyCode) {
-              case keycode('up'):
+            switch (e.key) {
+              case 'ArrowUp':
                 e.preventDefault();
                 setSelectedItemIndex(
                   selectedItemIndex === 0
@@ -86,7 +85,7 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }: Props) {
                     : selectedItemIndex - 1
                 );
                 return;
-              case keycode('down'):
+              case 'ArrowDown':
                 e.preventDefault();
                 setSelectedItemIndex(
                   selectedItemIndex === searchResults.length - 1
@@ -94,7 +93,7 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }: Props) {
                     : selectedItemIndex + 1
                 );
                 return;
-              case keycode('enter'):
+              case 'Enter':
                 if (searchResults[selectedItemIndex]) {
                   close();
                   onAdd(searchResults[selectedItemIndex]['latest']);
