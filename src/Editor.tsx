@@ -163,16 +163,21 @@ class Editor extends Component<EditorProps, EditorState> {
   };
 
   loadLib(url: string) {
-    return loadJs(url)
-      .then(() => {
-        toast.success(<Toast title="JS loaded!" text={url} />);
-        this.setState(({ libraries }) => ({
-          libraries: [...libraries, { url }],
-        }));
-      })
-      .catch(() => {
-        toast.error(<Toast title="JS load failed." text={url} />);
-      });
+    return new Promise<void>((resolve) => {
+      loadJs(url)
+        .then(() => {
+          toast.success(<Toast title="JS loaded!" text={url} />);
+          this.setState(
+            ({ libraries }) => ({
+              libraries: [...libraries, { url }],
+            }),
+            resolve
+          );
+        })
+        .catch(() => {
+          toast.error(<Toast title="JS load failed." text={url} />);
+        });
+    });
   }
 
   loadLibs() {
