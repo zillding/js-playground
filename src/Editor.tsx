@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import debounce from 'lodash/debounce';
 import isString from 'lodash/isString';
-import prettier from 'prettier/standalone';
+import { format } from 'prettier/standalone';
+import parserBabel from 'prettier/parser-babel';
 import AceEditor from 'react-ace';
 import { toast } from 'react-toastify';
 
@@ -125,12 +126,19 @@ class Editor extends Component<EditorProps, EditorState> {
         mac: 'Command-s',
       },
       exec: (editor: IEditor) => {
-        this.setState(({ libraries }) => ({
-          value: prettier.format(getNextValue(editor.getValue(), libraries), {
-            singleQuote: true,
-            parser: 'babel',
-          }),
-        }));
+        this.setState(({ libraries }) => {
+          let value = getNextValue(editor.getValue(), libraries);
+          try {
+            value = format(value, {
+              singleQuote: true,
+              parser: 'babel',
+              plugins: [parserBabel],
+            });
+          } catch (error) {
+            console.error(error);
+          }
+          return { value };
+        });
       },
     },
   ];
