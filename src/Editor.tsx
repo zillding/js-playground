@@ -50,7 +50,7 @@ function getNextValue(value: string, libraries: Library[]) {
     .filter((line: string) => !regex.test(line))
     .join('\n')
     .trim();
-  return `${libs}\n\n${content}`;
+  return libs ? `${libs}\n\n${content}`: content;
 }
 
 type ToastProps = {
