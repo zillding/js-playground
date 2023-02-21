@@ -122,8 +122,8 @@ class Editor extends Component<EditorProps, EditorState> {
     {
       name: 'formatCommand',
       bindKey: {
-        win: 'Ctrl-s',
-        mac: 'Command-s',
+        win: 'Ctrl-f',
+        mac: 'Command-f',
       },
       exec: (editor: IEditor) => {
         this.setState(({ libraries }) => {

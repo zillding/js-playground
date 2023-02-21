@@ -15,8 +15,8 @@ const keys = [
     text: 'clear console',
   },
   {
-    mac: ['cmd', 's'],
-    pc: ['ctrl', 's'],
+    mac: ['cmd', 'f'],
+    pc: ['ctrl', 'f'],
     text: 'format code',
   },
   {

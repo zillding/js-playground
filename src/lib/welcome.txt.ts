@@ -8,7 +8,7 @@ const value = `
 // |:---------:|:----------:|----------------|
 // | cmd+enter | ctrl+enter | run code       |
 // | cmd+k     | ctrl+k     | clear console  |
-// | cmd+s     | ctrl+s     | format code    |
+// | cmd+f     | ctrl+f     | format code    |
 // | cmd+o     | ctrl+o     | search library |
 
 alert('This is an AWESOME app!');
