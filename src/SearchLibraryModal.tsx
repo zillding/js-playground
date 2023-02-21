@@ -74,6 +74,7 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }: Props) {
           onChange={(e) => {
             search(e.target.value);
           }}
+          onBlur={onRequestClose}
           onKeyDown={(e) => {
             if (!searchResults.length) return;
             switch (e.keyCode) {
