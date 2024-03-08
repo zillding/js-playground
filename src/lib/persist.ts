@@ -3,7 +3,7 @@ import welcome from './welcome.txt';
 const PERSIST_KEY_PREFIX = 'js-playground-by-zill';
 
 const storage =
-  import.meta.env.NODE_ENV === 'production' ? localStorage : sessionStorage;
+  import.meta.env.RPOD ? localStorage : sessionStorage;
 
 function getPersist(key: string) {
   try {
