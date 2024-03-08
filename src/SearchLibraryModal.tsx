@@ -117,7 +117,7 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }: Props) {
         )}
         <div style={{ flex: 1, overflow: 'auto' }}>
           <AutoSizer>
-            {({ height, width }) => (
+            {({ height, width }: { height: number; width: number }) => (
               <List
                 ref={listEl}
                 height={height}
