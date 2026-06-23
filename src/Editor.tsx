@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import debounce from 'lodash/debounce';
-import isString from 'lodash/isString';
+import debounce from 'debounce';
 import { format } from 'prettier/standalone';
 import parserBabel from 'prettier/parser-babel';
 import AceEditor from 'react-ace';
@@ -24,7 +23,7 @@ function evalText(text: string) {
     console.log(
       '%c→',
       'color: darkgrey',
-      isString(result) ? JSON.stringify(result) : result
+      typeof result === 'string' ? JSON.stringify(result) : result
     );
   } catch (error) {
     console.error(error);
@@ -50,7 +49,7 @@ function getNextValue(value: string, libraries: Library[]) {
     .filter((line: string) => !regex.test(line))
     .join('\n')
     .trim();
-  return libs ? `${libs}\n\n${content}`: content;
+  return libs ? `${libs}\n\n${content}` : content;
 }
 
 type ToastProps = {
