@@ -1,7 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
-import { FixedSizeList as List } from 'react-window';
-import AutoSizer from 'react-virtualized-auto-sizer';
+import { type RowComponentProps, List, useListRef } from 'react-window';
 import { useDebouncedCallback } from 'use-debounce';
 
 import styles from './SearchLibraryModal.module.css';
@@ -14,14 +13,42 @@ function searchLib(str: string) {
 
 let currentRequest: object;
 
-type Props = {
+function RowComponent({
+  index,
+  style,
+  selectedIndex,
+  items,
+}: RowComponentProps<{
+  selectedIndex: number;
+  items: {
+    name: string;
+    latest: string;
+  }[];
+}>) {
+  const data = items[index];
+  return (
+    <div
+      className={styles.item}
+      style={{
+        ...style,
+        backgroundColor: index === selectedIndex ? '#ddd' : undefined,
+      }}
+    >
+      <strong>{data.name}</strong> - <a href={data.latest}>{data.latest}</a>
+    </div>
+  );
+}
+
+function SearchLibraryModal({
+  isOpen,
+  onRequestClose,
+  onAdd,
+}: {
   isOpen: boolean;
   onRequestClose: () => void;
   onAdd: (url: string) => void;
-};
-
-function SearchLibraryModal({ isOpen, onRequestClose, onAdd }: Props) {
-  const listEl = useRef<null | List>(null);
+}) {
+  const listRef = useListRef(null);
   const [loading, setLoading] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
@@ -43,7 +70,7 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }: Props) {
   }, 500);
 
   useEffect(() => {
-    listEl.current?.scrollToItem(selectedItemIndex);
+    listRef.current?.scrollToRow({ index: selectedItemIndex });
   }, [selectedItemIndex]);
 
   function close() {
@@ -116,33 +143,16 @@ function SearchLibraryModal({ isOpen, onRequestClose, onAdd }: Props) {
           </span>
         )}
         <div style={{ flex: 1, overflow: 'auto' }}>
-          <AutoSizer>
-            {({ height, width }: { height: number; width: number }) => (
-              <List
-                ref={listEl}
-                height={height}
-                itemCount={searchResults.length}
-                itemSize={30}
-                width={width}
-              >
-                {({ index, style }) => {
-                  const { name, latest } = searchResults[index];
-                  return (
-                    <div
-                      className={styles.item}
-                      style={{
-                        ...style,
-                        backgroundColor:
-                          selectedItemIndex === index ? '#ddd' : undefined,
-                      }}
-                    >
-                      <strong>{name}</strong> - <a href={latest}>{latest}</a>
-                    </div>
-                  );
-                }}
-              </List>
-            )}
-          </AutoSizer>
+          <List
+            listRef={listRef}
+            rowComponent={RowComponent}
+            rowCount={searchResults.length}
+            rowHeight={30}
+            rowProps={{
+              selectedIndex: selectedItemIndex,
+              items: searchResults,
+            }}
+          />
         </div>
       </div>
     </Modal>

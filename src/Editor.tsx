@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import debounce from 'lodash/debounce';
-import isString from 'lodash/isString';
-import { format } from 'prettier/standalone';
-import parserBabel from 'prettier/parser-babel';
+import debounce from 'debounce';
+import { format } from 'prettier';
 import AceEditor from 'react-ace';
 import { toast } from 'react-toastify';
 
@@ -24,7 +22,7 @@ function evalText(text: string) {
     console.log(
       '%c→',
       'color: darkgrey',
-      isString(result) ? JSON.stringify(result) : result
+      typeof result === 'string' ? JSON.stringify(result) : result
     );
   } catch (error) {
     console.error(error);
@@ -50,7 +48,7 @@ function getNextValue(value: string, libraries: Library[]) {
     .filter((line: string) => !regex.test(line))
     .join('\n')
     .trim();
-  return libs ? `${libs}\n\n${content}`: content;
+  return libs ? `${libs}\n\n${content}` : content;
 }
 
 type ToastProps = {
@@ -125,20 +123,19 @@ class Editor extends Component<EditorProps, EditorState> {
         win: 'Ctrl-f',
         mac: 'Command-f',
       },
-      exec: (editor: IEditor) => {
-        this.setState(({ libraries }) => {
-          let value = getNextValue(editor.getValue(), libraries);
-          try {
-            value = format(value, {
+      exec: async (editor: IEditor) => {
+        try {
+          const value = await format(
+            getNextValue(editor.getValue(), this.state.libraries),
+            {
               singleQuote: true,
               parser: 'babel',
-              plugins: [parserBabel],
-            });
-          } catch (error) {
-            console.error(error);
-          }
-          return { value };
-        });
+            }
+          );
+          this.setState({ value });
+        } catch (error) {
+          console.error(error);
+        }
       },
     },
   ];
