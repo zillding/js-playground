@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import debounce from 'debounce';
-import { format } from 'prettier/standalone';
-import parserBabel from 'prettier/parser-babel';
+import { format } from 'prettier';
 import AceEditor from 'react-ace';
 import { toast } from 'react-toastify';
 
@@ -124,20 +123,19 @@ class Editor extends Component<EditorProps, EditorState> {
         win: 'Ctrl-f',
         mac: 'Command-f',
       },
-      exec: (editor: IEditor) => {
-        this.setState(({ libraries }) => {
-          let value = getNextValue(editor.getValue(), libraries);
-          try {
-            value = format(value, {
+      exec: async (editor: IEditor) => {
+        try {
+          const value = await format(
+            getNextValue(editor.getValue(), this.state.libraries),
+            {
               singleQuote: true,
               parser: 'babel',
-              plugins: [parserBabel],
-            });
-          } catch (error) {
-            console.error(error);
-          }
-          return { value };
-        });
+            }
+          );
+          this.setState({ value });
+        } catch (error) {
+          console.error(error);
+        }
       },
     },
   ];
